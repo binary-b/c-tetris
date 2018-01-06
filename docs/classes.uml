@@ -36,12 +36,12 @@ interface Class {
 	{abstract} Object ctor ( Class class );
 	{abstract} void dtor ();
 	{abstract} Object clone ( Class obj );
-	size_t sizeOf ( Object obj );
 	{abstract} bool differ ( Object obj1, Object obj2 );
+	size_t sizeOf ( Object obj );
 }
 
 class Object {
-	size_t sizeOf ();
+	new ( Class * );
 }
 class List {
 	int length;
