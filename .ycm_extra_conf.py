@@ -9,6 +9,7 @@ flags = [
   '-I/usr/include/',
   '-I/usr/include/allegro5',
   '-I./include',
+  '-I../include',
   ]
 
 SOURCE_EXTENSIONS = [ '.c', ]

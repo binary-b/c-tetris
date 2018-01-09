@@ -34,5 +34,4 @@ typedef struct {
 	Pos mouse_pos;
 } Event;
 
-
 #endif

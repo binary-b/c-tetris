@@ -1,6 +1,8 @@
 #include "Class.r"
 #include "Class.h"
 
+#include "debug.h"
+
 #include <stdlib.h>
 #include <stdarg.h>
 #include <assert.h>
@@ -24,8 +26,10 @@ void *new ( void *_class, ... ) {
 void delete ( void *_self ) {
 	const struct Class **self = _self;
 
-	if ( (*self)->dtor )
-		(*self)->dtor ( self );
+	assert ( self );
+	if ( (*self)->dtor ) {
+		(*self)->dtor ( _self );
+	}
 	free ( self );
 }
 

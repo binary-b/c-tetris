@@ -33,7 +33,7 @@ package "struct" {
 }
 interface Class {
 	size_t size;
-	{abstract} Object ctor ( Class class );
+	{abstract} Object ctor ( Class class, va_list *app );
 	{abstract} void dtor ();
 	{abstract} Object clone ( Class obj );
 	{abstract} bool differ ( Object obj1, Object obj2 );
@@ -44,11 +44,12 @@ class Object {
 	new ( Class * );
 }
 class List {
-	int length;
-	void addItem (Object obj);
+	long length;
+	new ();
+	int addItem (Object obj);
 	Object getItem (int id);
-	Object rmItem (int id);
-	void apply ();
+	bool rmItem (int id);
+	void apply ( void f (void *obj, va_list *app) );
 }
 class Stack {
 	int height;
