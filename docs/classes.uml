@@ -52,10 +52,11 @@ class List {
 	void apply ( void f (void *obj, va_list *app) );
 }
 class Stack {
-	int height;
-	void addItem ( Object obj );
-	void *getItem ();
-	void rmItem ();
+	long height;
+	new ();
+	bool put ( Object obj );
+	void *getTop ();
+	void rmTop ();
 }
 
 interface GUIObj {

@@ -10,5 +10,6 @@ void test_print_res ( char *text, bool result );
 
 // tests
 void test_list ( void );
+void test_stack ( void );
 
 #endif

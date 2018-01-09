@@ -15,7 +15,7 @@ struct ListItem {
 };
 
 struct List {
-	struct Object p;
+	struct Object _p;
 	long length;
 	long counter;
 	struct ListItem *first;

@@ -24,6 +24,7 @@ void unit_test ( void ) {
 	test_print_res ( "some other result", false );
 
 	test_list ();
+	test_stack ();
 	/*printf ( "size of obj = %ld\n", sizeOf (obj) );*/
 
 	/*void *list = new ( List );*/
