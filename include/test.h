@@ -11,5 +11,6 @@ void test_print_res ( char *text, bool result );
 // tests
 void test_list ( void );
 void test_stack ( void );
+void test_window ( void );
 
 #endif

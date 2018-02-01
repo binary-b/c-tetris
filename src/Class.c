@@ -16,6 +16,7 @@ void *new ( void *_class, ... ) {
 
 	if ( class->ctor ) {
 		va_list ap;
+		va_start ( ap, _class );
 		p = class->ctor ( p, &ap );
 		va_end ( ap );
 	}

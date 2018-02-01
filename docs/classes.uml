@@ -11,7 +11,9 @@ package "struct" {
 		int x;
 		int y;
 	}
-	class Dim <<(S,#fcd40a)>> {
+	class Rect <<(S,#fcd40a)>> {
+		int x;
+		int y;
 		int width;
 		int height;
 	}
@@ -66,14 +68,14 @@ interface GUIObj {
 class Window {
 	Stack<View> views;
 	Pos pos;
-	Dim dim;
-	new ( Dim dim );
+	Rect rect;
+	new ( Rect rect );
 	void addView ( View view );
 }
 class View {
-	Dim dim;
+	Rect rect;
 	Window window;
-	new ( Dim dim );
+	new ( Rect rect );
 	void zoomOn ( View view );
 	void zoomRestore ( View view );
 	{abstract} void event ( View view, Event ev );
@@ -85,7 +87,6 @@ class Menu {
 class MenuItem
 class Button
 class Game {
-	Dim dim;
 	bool board [h][w];
 	Block active;
 }

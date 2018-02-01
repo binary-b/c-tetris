@@ -7,12 +7,12 @@ typedef enum {
 } bool;
 
 typedef enum {
-	UP,
-	DOWN,
-	RIGHT,
-	LETF,
-	CLOCKWISE,
-	COUNTER_CLOCKWISE
+	DIR_UP,
+	DIR_DOWN,
+	DIR_RIGHT,
+	DIR_LETF,
+	DIR_CLOCKWISE,
+	DIR_COUNTER_CLOCKWISE
 } direction;
 
 typedef enum {
@@ -25,13 +25,13 @@ typedef struct {
 } Pos;
 
 typedef struct {
-	int width;
-	int height;
-} Dim;
-
-typedef struct {
 	events type;
 	Pos mouse_pos;
 } Event;
+
+typedef struct {
+	int x, y;
+	int w, h;
+} Rect;
 
 #endif

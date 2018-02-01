@@ -17,22 +17,9 @@
 #define ANSI_RESET         "\x1b[0m"
 
 void unit_test ( void ) {
-	/*void *obj = new ( Object );*/
-
-	test_print_head ( "Starting Unit Test" );
-	test_print_res ( "some result", true );
-	test_print_res ( "some other result", false );
-
 	test_list ();
 	test_stack ();
-	/*printf ( "size of obj = %ld\n", sizeOf (obj) );*/
-
-	/*void *list = new ( List );*/
-
-	/*printf ( "length of list = %ld\n", list_getLength (list) );*/
-	/*long id = list_addItem ( list, obj );*/
-	/*printf ( "id of first item = %ld\n", id );*/
-	/*printf ( "length of list = %ld\n", list_getLength (list) );*/
+	test_window ();
 }
 
 void test_print_head ( char *text ) {
