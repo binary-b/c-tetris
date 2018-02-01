@@ -92,6 +92,8 @@ class Game {
 class Block {
 	rotate ( direction );
 }
+class Container {
+}
 
 Object --* Class
 
@@ -109,6 +111,7 @@ Menu --|> View
 Game --|> View
 Block --|> View
 MenuItem --|> View
+Container	--|> View
 
 Button --|> MenuItem
 
