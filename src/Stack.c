@@ -29,7 +29,7 @@ void _dtor ( void *_self ) {
 	struct Stack *self = _self;
 
 	while ( self->height > 0 )
-		stack_rmTop ( self );
+		delete ( stack_pop ( self ) );
 }
 
 void *_clone ( void *self ) {
@@ -54,7 +54,7 @@ long stack_getHeight ( void *_self ) {
 	return self->height;
 }
 
-bool stack_put ( void *_self, void *obj ) {
+bool stack_push ( void *_self, void *obj ) {
 	struct Stack *self = _self;
 	struct StackItem *item;
 	
@@ -69,20 +69,28 @@ bool stack_put ( void *_self, void *obj ) {
 	
 	return true;
 }
-void *stack_getTop ( void *_self ) {
+void *stack_peek ( void *_self ) {
 	struct Stack *self = _self;
-	return self->top->obj;
+	if ( self->height < 1 )
+		return NULL;
+	else
+		return self->top->obj;
 }
-void stack_rmTop ( void *_self ) {
+void *stack_pop ( void *_self ) {
 	struct Stack *self = _self;
 	struct StackItem *item;
+	void *obj;
 
+	if ( self->height < 1 )
+		return NULL;
 	item = self->top;
 	self->top = item->prev;
-	delete ( item->obj );
+	obj = item->obj;
 	free ( item );
 
 	self->height--;
+
+	return obj;
 }
 
 void *Stack = &_Stack;

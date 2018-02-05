@@ -40,6 +40,7 @@ interface Class {
 	{abstract} Object clone ( Class obj );
 	{abstract} bool differ ( Object obj1, Object obj2 );
 	size_t sizeOf ( Object obj );
+	void *typeOf ( Object obj );
 }
 
 class Object {
@@ -74,7 +75,7 @@ class Window {
 }
 class View {
 	Rect rect;
-	Window window;
+	union Window or View context;
 	new ( Rect rect );
 	void zoomOn ( View view );
 	void zoomRestore ( View view );

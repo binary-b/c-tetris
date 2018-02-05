@@ -3,4 +3,11 @@
 
 extern void *Window;
 
+enum win_update {
+	WIN_UPDATE_NOTHING,
+	WIN_UPDATE_CLOSED
+};
+
+void win_addView ( void *self, void *view );
+
 #endif

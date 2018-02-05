@@ -47,3 +47,8 @@ size_t sizeOf ( void *_self ) {
 
 	return (*self)->size;
 }
+
+const void *typeOf ( void *_self ) {
+	const struct Class **self = _self;
+	return *self;
+}
