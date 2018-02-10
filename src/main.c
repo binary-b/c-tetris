@@ -5,6 +5,7 @@
 #include "GUIObj.h"
 #include "Window.h"
 #include "View.h"
+#include "Container.h"
 
 #include "macros.h"
 #include "test.h"
@@ -29,13 +30,19 @@ void game_loop ( void ) {
 	ALLEGRO_EVENT_QUEUE *queue;
 	ALLEGRO_TIMER *timer;
 
+	void *view, *container;
+
 	timer = al_create_timer ( 1 / (double) 1 );
 	queue = al_create_event_queue ();
 	al_register_event_source ( queue, al_get_timer_event_source (timer) );
 
+	container = new ( Container );
 	void *window = new ( Window, (Rect) {0, 0, 720, 480} );
-	void *view = new ( View, (Rect) {10, 10, 100, 100} );
-	win_addView ( window, view );
+	view = new ( View, (Rect) {10, 10, 100, 100} );
+	cont_addView ( container, view );
+	view = new ( View, (Rect) {100, 100, 100, 100} );
+	cont_addView ( container, view );
+	win_addView ( window, container );
 
 	al_start_timer ( timer );
 	TRACEF (( "window %p", window ));

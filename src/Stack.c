@@ -16,7 +16,7 @@ struct Stack {
 	struct StackItem *top;
 };
 
-void *_ctor ( void *_self, va_list *app ) {
+static void *_ctor ( void *_self, va_list *app ) {
 	struct Stack *self = _self;
 
 	self->height = 0;
@@ -25,28 +25,20 @@ void *_ctor ( void *_self, va_list *app ) {
 	return self;
 }
 
-void _dtor ( void *_self ) {
+static void _dtor ( void *_self ) {
 	struct Stack *self = _self;
 
 	while ( self->height > 0 )
 		delete ( stack_pop ( self ) );
 }
 
-void *_clone ( void *self ) {
+static void *_clone ( void *self ) {
 	return self;
 }
 
-bool _diff ( void *obj1, void *obj2 ) {
+static bool _diff ( void *obj1, void *obj2 ) {
 	return false;
 }
-
-struct Class _Stack = {
-	sizeof ( struct Stack ),
-	_ctor,
-	_dtor,
-	_clone,
-	_diff
-};
 
 long stack_getHeight ( void *_self ) {
 	struct Stack *self = _self;
@@ -92,5 +84,13 @@ void *stack_pop ( void *_self ) {
 
 	return obj;
 }
+
+struct Class _Stack = {
+	sizeof ( struct Stack ),
+	_ctor,
+	_dtor,
+	_clone,
+	_diff
+};
 
 void *Stack = &_Stack;

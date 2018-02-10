@@ -1,5 +1,5 @@
 @startuml
-scale 2.0
+'scale 2.0
 
 'skinparam handwritten true
 skinparam defaultFontName Monospace
@@ -16,21 +16,6 @@ package "struct" {
 		int y;
 		int width;
 		int height;
-	}
-	class Event <<(S,#fcd40a)>> {
-		events type;
-		Pos mousePos;
-	}
-	enum events {
-		EV_ONCLICK
-	}
-	enum direction {
-		UP,
-		DOWN,
-		RIGHT,
-		LEFT,
-		CLOCKWISE,
-		COURTER_CLOCKWISE
 	}
 }
 interface Class {
@@ -52,7 +37,7 @@ class List {
 	int addItem (Object obj);
 	Object getItem (int id);
 	bool rmItem (int id);
-	void apply ( void f (void *obj, va_list *app) );
+	void apply ( void (*f) (int id, void *obj) );
 }
 class Stack {
 	long height;
@@ -62,39 +47,62 @@ class Stack {
 	void rmTop ();
 }
 
-interface GUIObj {
-	{abstract} void draw ( GUIObj obj );
-	{abstract} int update ( GUIObj obj );
-}
-class Window {
-	Stack<View> views;
-	Pos pos;
-	Rect rect;
-	new ( Rect rect );
-	void addView ( View view );
-}
-class View {
-	Rect rect;
-	union Window or View context;
-	new ( Rect rect );
-	void zoomOn ( View view );
-	void zoomRestore ( View view );
-	{abstract} void event ( View view, Event ev );
-}
-class Menu {
-	List<MenuItem> items;
-	MenuItem active;
-}
-class MenuItem
-class Button
-class Game {
-	bool board [h][w];
-	Block active;
-}
-class Block {
-	rotate ( direction );
-}
-class Container {
+package gui {
+	enum events {
+		EV_ONCLICK
+	}
+	enum direction {
+		UP,
+		DOWN,
+		RIGHT,
+		LEFT,
+		CLOCKWISE,
+		COURTER_CLOCKWISE
+	}
+	class Event {
+		enum events type;
+	}
+	class MouseEvent {
+	}
+	class KeyboardEvent {
+	}
+
+	interface GUIObj {
+		{abstract} void draw ( GUIObj obj );
+		{abstract} int update ( GUIObj obj );
+	}
+	class Window {
+		Stack<View> views;
+		Pos pos;
+		Rect rect;
+		new ( Rect rect );
+		void addView ( View view );
+	}
+	class View {
+		Rect rect;
+		bool resizable;
+		union Window or View context;
+		new ( Rect rect );
+		void zoomIn ( View view );
+		void zoomRestore ( View view );
+		{abstract} void event ( View view, Event ev );
+	}
+	class Menu {
+		List<MenuItem> items;
+		MenuItem active;
+	}
+	class Container {
+		addView ( View view );
+	}
+	class MenuItem
+	class Button
+	class Game {
+		bool board [h][w];
+		Block active;
+	}
+	class Block {
+		rotate ( direction );
+	}
 }
 
 Object --* Class
@@ -103,6 +111,10 @@ List --|> Object
 Stack --|> Object
 
 GUIObj --|> Class
+
+Event --|> Object
+MouseEvent --|> Event
+KeyboardEvent --|> Event
 
 Window --* GUIObj
 Window --|> Object

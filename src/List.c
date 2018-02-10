@@ -6,8 +6,6 @@
 #include "macros.h"
 #include "debug.h"
 
-#include <stdlib.h>
-
 struct ListItem {
 	long id;
 	void *cont;
@@ -112,6 +110,17 @@ bool list_rmItem ( void *_self, long id ) {
 		return true;
 	} else
 		return false;
+}
+
+void list_apply ( void *_self, void (*f) (int id, void *obj) ) {
+	struct List *self = _self;
+	struct ListItem *curr = self->first;
+
+	while ( curr != NULL ) {
+		f ( curr->id, curr->cont );
+
+		curr = curr->next;
+	}
 }
 
 struct Class _List = {
