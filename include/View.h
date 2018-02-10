@@ -3,6 +3,6 @@
 
 extern void *View;
 
-view_setRect ( void *self, Rect rect );
+void view_setRect ( void *self, Rect rect );
 
 #endif

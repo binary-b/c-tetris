@@ -9,6 +9,7 @@
 #include "GUIObj.h"
 #include "Window.h"
 #include "Stack.h"
+#include "View.h"
 
 #include "macros.h"
 #include "debug.h"
@@ -76,7 +77,7 @@ static int _update ( void *_self ) {
 	/*
 	 * update top window
 	 */
-	TRACEF (( "stack height = %d", stack_getHeight (self->views) ));
+	TRACEF (( "stack height = %ld", stack_getHeight (self->views) ));
 	void *view = stack_peek (self->views);
 	if ( view != NULL )
 		update ( view );

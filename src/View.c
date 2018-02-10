@@ -39,7 +39,7 @@ static void _draw ( void *_self ) {
 		   al_map_rgb (255, 0, 0) );
 }
 
-view_setRect ( void *_self, Rect rect ) {
+void view_setRect ( void *_self, Rect rect ) {
 	struct View *self = _self;
 
 	self->rect = rect;
