@@ -77,7 +77,6 @@ static int _update ( void *_self ) {
 	/*
 	 * update top window
 	 */
-	TRACEF (( "stack height = %ld", stack_getHeight (self->views) ));
 	void *view = stack_peek (self->views);
 	if ( view != NULL )
 		update ( view );

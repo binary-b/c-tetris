@@ -6,18 +6,6 @@ skinparam defaultFontName Monospace
 skinparam classFontSize 18
 skinparam defaultFontSize 14
 
-package "struct" {
-	class Pos <<(S,#fcd40a)>> {
-		int x;
-		int y;
-	}
-	class Rect <<(S,#fcd40a)>> {
-		int x;
-		int y;
-		int width;
-		int height;
-	}
-}
 interface Class {
 	size_t size;
 	{abstract} Object ctor ( Class class, va_list *app );
@@ -47,9 +35,12 @@ class Stack {
 	void rmTop ();
 }
 
-package gui {
-	enum events {
-		EV_ONCLICK
+package event {
+	enum mouse_button {
+		MOUSE_NONE,
+		MOUSE_RIGHT,
+		MOUSE_LEFT,
+		MOUSE_MIDDLE
 	}
 	enum direction {
 		UP,
@@ -63,8 +54,23 @@ package gui {
 		enum events type;
 	}
 	class MouseEvent {
+		
 	}
 	class KeyboardEvent {
+	}
+}
+package gui {
+	package "struct" {
+		class Pos <<(S,#fcd40a)>> {
+			int x;
+			int y;
+		}
+		class Rect <<(S,#fcd40a)>> {
+			int x;
+			int y;
+			int width;
+			int height;
+		}
 	}
 
 	interface GUIObj {
@@ -87,15 +93,21 @@ package gui {
 		void zoomRestore ( View view );
 		{abstract} void event ( View view, Event ev );
 	}
-	class Menu {
-		List<MenuItem> items;
-		MenuItem active;
+	class Label {
+		char *text;
+		new ( char *text, int size );
+	}
+	class Image {
+	}
+	class Button {
+		Label label;
+		Image image;
+		void (*f) (Button button);
+		new ( void (*f) (Button button) );
 	}
 	class Container {
 		addView ( View view );
 	}
-	class MenuItem
-	class Button
 	class Game {
 		bool board [h][w];
 		Block active;
@@ -121,12 +133,12 @@ Window --|> Object
 View --* GUIObj
 View --|> Object
 
-Menu --|> View
 Game --|> View
 Block --|> View
-MenuItem --|> View
 Container	--|> View
 
-Button --|> MenuItem
+Label --|> View
+Button --|> View
+Image --|> View
 
 @enduml

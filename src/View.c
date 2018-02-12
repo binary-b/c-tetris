@@ -73,6 +73,8 @@ bool view_isRezisable ( void *_self ) {
 	return self->resizable;
 }
 
+void *(*p_ctor) ( void *, va_list *app ) = _ctor;
+
 struct GUIObj _View = {
 	sizeof ( struct View ),
 	_ctor,

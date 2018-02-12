@@ -1,4 +1,6 @@
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
 
 #include "Class.h"
@@ -6,6 +8,7 @@
 #include "Window.h"
 #include "View.h"
 #include "Container.h"
+#include "Label.h"
 
 #include "macros.h"
 #include "test.h"
@@ -18,6 +21,11 @@ void game_loop ( void );
 int main ( int argc, char **argv ) {
 	al_init ();
 	al_init_primitives_addon ();
+	al_init_font_addon ();
+	al_init_ttf_addon ();
+
+	al_install_mouse ();
+	al_install_keyboard ();
 
 	unit_test ();
 	game_loop ();
@@ -40,20 +48,19 @@ void game_loop ( void ) {
 	void *window = new ( Window, (Rect) {0, 0, 720, 480} );
 	view = new ( View, (Rect) {10, 10, 100, 100} );
 	cont_addView ( container, view );
-	view = new ( View, (Rect) {100, 100, 100, 100} );
+	view = new ( View, (Rect) {400, 400, 100, 100} );
+	cont_addView ( container, view );
+	view = new ( Label, (Rect) {200, 0, 100, 100}, "some example text", 20 );
 	cont_addView ( container, view );
 	win_addView ( window, container );
 
 	al_start_timer ( timer );
-	TRACEF (( "window %p", window ));
 	while ( !game_stop ) {
 		ALLEGRO_EVENT ev;
 		al_wait_for_event ( queue, &ev );
 
-		TRACEF (( "window %p", window ));
 		if ( update (window) == WIN_UPDATE_CLOSED )
 			break;
-		TRACEF (( "window %p", window ));
 		draw ( window );
 		
 		al_flip_display ();
