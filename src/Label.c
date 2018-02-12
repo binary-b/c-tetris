@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdlib.h>
 #include <stdarg.h>
 
 #include <allegro5/allegro_font.h>
@@ -25,33 +26,39 @@ static void * _ctor ( void *_self, va_list *app ) {
 
 	struct Label *self = _self;
 	char *text;
-	ALLEGRO_PATH *path;
-	ALLEGRO_FONT *font;
 	int size;
 	Rect r;
 
+	ALLEGRO_PATH *path;
+	ALLEGRO_FONT *font;
+
+	// copy text
 	text = strdup ( va_arg (*app, char *) );
 	size = va_arg ( *app, int );
 
+	// load font
 	path = al_get_standard_path ( ALLEGRO_RESOURCES_PATH );
-	al_append_path_component ( path, "fonts/Overlock/" );
-	al_set_path_filename ( path, "Overlock-Black.ttf" );
-	TRACEF (( "%s", al_path_cstr (path, ALLEGRO_NATIVE_PATH_SEP) ));
+	al_set_path_filename ( path, "fonts/Overlock/Overlock-Black.ttf" );
 	font = al_load_ttf_font ( al_path_cstr (path, ALLEGRO_NATIVE_PATH_SEP), size, 0 );
 	self->font = font;
 	self->text = text;
 
+	// set rectangle width and height
 	r = view_getRect ( self );
 	r.w = al_get_text_width ( font, text );
 	r.h = al_get_font_line_height ( font );
 	view_setRect ( self, r );
-	TRACEF (( "x=%d, y=%d, w=%d, h=%d", r.x, r.y, r.w, r.h ));
-	r = view_getRect ( self );
-	TRACEF (( "x=%d, y=%d, w=%d, h=%d", r.x, r.y, r.w, r.h ));
+
+	al_destroy_path ( path );
 	
 	return _self;
 }
 static void _dtor ( void *_self ) {
+	struct Label *self = _self;
+
+	free ( self->text );
+
+	al_destroy_font ( self->font );
 }
 
 static int _update ( void *obj ) {

@@ -98,6 +98,7 @@ package gui {
 		new ( char *text, int size );
 	}
 	class Image {
+		new ( char *path );
 	}
 	class Button {
 		Label label;

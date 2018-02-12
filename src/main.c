@@ -2,6 +2,7 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_image.h>
 
 #include "Class.h"
 #include "GUIObj.h"
@@ -9,6 +10,7 @@
 #include "View.h"
 #include "Container.h"
 #include "Label.h"
+#include "Image.h"
 
 #include "macros.h"
 #include "test.h"
@@ -23,6 +25,7 @@ int main ( int argc, char **argv ) {
 	al_init_primitives_addon ();
 	al_init_font_addon ();
 	al_init_ttf_addon ();
+	al_init_image_addon ();
 
 	al_install_mouse ();
 	al_install_keyboard ();
@@ -48,7 +51,7 @@ void game_loop ( void ) {
 	void *window = new ( Window, (Rect) {0, 0, 720, 480} );
 	view = new ( View, (Rect) {10, 10, 100, 100} );
 	cont_addView ( container, view );
-	view = new ( View, (Rect) {400, 400, 100, 100} );
+	view = new ( Image, (Rect) {400, 400, 100, 100}, "test_image.png" );
 	cont_addView ( container, view );
 	view = new ( Label, (Rect) {200, 0, 100, 100}, "some example text", 20 );
 	cont_addView ( container, view );
