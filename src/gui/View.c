@@ -1,11 +1,11 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 
-#include "GUIHandler.r"
+#include "gui/GUIHandler.r"
 #include "Object.r"
 
-#include "View.h"
-#include "View.r"
+#include "gui/View.h"
+#include "gui/View.r"
 
 #include "macros.h"
 #include "debug.h"
@@ -35,7 +35,7 @@ static void _draw ( void *_self ) {
 }
 
 static void _event ( void *_self, void *ev ) {
-	TRACEF ( "some event have been called" );
+	TRACEF (( "some event have been called" ));
 }
 
 void view_zoomIn ( void *_self ) {

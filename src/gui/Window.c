@@ -2,14 +2,14 @@
 
 #include <allegro5/allegro.h>
 
-#include "GUIObj.r"
+#include "gui/GUIObj.r"
 #include "Object.r"
 
 #include "Class.h"
-#include "GUIObj.h"
-#include "Window.h"
+#include "gui/GUIObj.h"
+#include "gui/Window.h"
 #include "Stack.h"
-#include "View.h"
+#include "gui/View.h"
 
 #include "macros.h"
 #include "debug.h"

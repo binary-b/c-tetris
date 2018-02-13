@@ -5,12 +5,12 @@
 #include <allegro5/allegro_image.h>
 
 #include "Class.h"
-#include "GUIObj.h"
-#include "Window.h"
-#include "View.h"
-#include "Container.h"
-#include "Label.h"
-#include "Image.h"
+#include "gui/GUIObj.h"
+#include "gui/Window.h"
+#include "gui/View.h"
+#include "gui/Container.h"
+#include "gui/Label.h"
+#include "gui/Image.h"
 
 #include "macros.h"
 #include "test.h"

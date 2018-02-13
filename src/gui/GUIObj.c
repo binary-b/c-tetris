@@ -1,5 +1,5 @@
-#include "GUIObj.r"
-#include "GUIObj.h"
+#include "gui/GUIObj.r"
+#include "gui/GUIObj.h"
 
 #include <assert.h>
 #include "debug.h"

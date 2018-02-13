@@ -5,11 +5,11 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 
-#include <View.r>
-#include <GUIObj.r>
-#include <Label.h>
+#include "gui/View.r"
+#include "gui/GUIObj.r"
+#include "gui/Label.h"
 
-#include <View.h>
+#include "gui/View.h"
 
 #include "macros.h"
 #include "debug.h"

@@ -1,5 +1,6 @@
 #include "Class.r"
 #include "Object.r"
+#include "event/Event.h"
 
 struct Event {
 	struct Object _p;

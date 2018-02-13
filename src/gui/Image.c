@@ -1,10 +1,10 @@
 #include <allegro5/allegro.h>
 #include <assert.h>
 
-#include "GUIObj.r"
-#include "View.r"
+#include "gui/GUIObj.r"
+#include "gui/View.r"
 
-#include "View.h"
+#include "gui/View.h"
 
 #include "debug.h"
 

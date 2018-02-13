@@ -1,8 +1,8 @@
 #include "test.h"
 
 #include "Class.h"
-#include "GUIObj.h"
-#include "Window.h"
+#include "gui/GUIObj.h"
+#include "gui/Window.h"
 
 #include "macros.h"
 

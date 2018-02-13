@@ -1,11 +1,11 @@
-#include "GUIObj.r"
-#include "View.r"
-#include "Container.h"
+#include "gui/GUIObj.r"
+#include "gui/View.r"
+#include "gui/Container.h"
 
 #include "Class.h"
-#include "GUIObj.h"
+#include "gui/GUIObj.h"
 #include "List.h"
-#include "View.h"
+#include "gui/View.h"
 
 struct Container {
 	struct View _p;
