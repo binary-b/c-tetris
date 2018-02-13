@@ -6,6 +6,19 @@ skinparam defaultFontName Monospace
 skinparam classFontSize 18
 skinparam defaultFontSize 14
 
+package "struct" {
+	class Pos <<(S,#fcd40a)>> {
+		int x;
+		int y;
+	}
+	class Rect <<(S,#fcd40a)>> {
+		int x;
+		int y;
+		int width;
+		int height;
+	}
+}
+
 interface Class {
 	size_t size;
 	{abstract} Object ctor ( Class class, va_list *app );
@@ -51,31 +64,32 @@ package event {
 		COURTER_CLOCKWISE
 	}
 	class Event {
-		enum events type;
 	}
 	class MouseEvent {
-		
+		Pos pos;
+		new ( Pos pos );
+	}
+	class MouseMoved {
+	}
+	class MouseEntered {
+	}
+	class MouseLeft {
+	}
+	class MouseButton {
+		bool state;
+		enum mouse_button button;
+		new ( enum mouse_button button );
 	}
 	class KeyboardEvent {
 	}
 }
 package gui {
-	package "struct" {
-		class Pos <<(S,#fcd40a)>> {
-			int x;
-			int y;
-		}
-		class Rect <<(S,#fcd40a)>> {
-			int x;
-			int y;
-			int width;
-			int height;
-		}
-	}
-
 	interface GUIObj {
 		{abstract} void draw ( GUIObj obj );
 		{abstract} int update ( GUIObj obj );
+	}
+	interface GUIHandler {
+		{abstract} void event ( View view, Event ev );
 	}
 	class Window {
 		Stack<View> views;
@@ -91,7 +105,6 @@ package gui {
 		new ( Rect rect );
 		void zoomIn ( View view );
 		void zoomRestore ( View view );
-		{abstract} void event ( View view, Event ev );
 	}
 	class Label {
 		char *text;
@@ -124,14 +137,20 @@ List --|> Object
 Stack --|> Object
 
 GUIObj --|> Class
+GUIHandler --|> GUIObj
 
 Event --|> Object
 MouseEvent --|> Event
 KeyboardEvent --|> Event
 
+MouseMoved --|> MouseEvent
+MouseEntered --|> MouseEvent
+MouseLeft --|> MouseEvent
+MouseButton --|> MouseEvent
+
 Window --* GUIObj
 Window --|> Object
-View --* GUIObj
+View --* GUIHandler
 View --|> Object
 
 Game --|> View

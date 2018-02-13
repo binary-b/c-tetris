@@ -1,7 +1,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 
-#include "GUIObj.r"
+#include "GUIHandler.r"
 #include "Object.r"
 
 #include "View.h"
@@ -32,6 +32,10 @@ static void _draw ( void *_self ) {
 
 	al_draw_filled_rectangle ( 6, 6, r.w - 6, r.h - 6,
 		   al_map_rgb (255, 0, 0) );
+}
+
+static void _event ( void *_self, void *ev ) {
+	TRACEF ( "some event have been called" );
 }
 
 void view_zoomIn ( void *_self ) {
@@ -75,14 +79,15 @@ bool view_isRezisable ( void *_self ) {
 
 void *(*p_ctor) ( void *, va_list *app ) = _ctor;
 
-struct GUIObj _View = {
+struct GUIHandler _View = {
 	sizeof ( struct View ),
 	_ctor,
 	_dtor,
 	NULL,
 	NULL,
 	_update,
-	_draw
+	_draw,
+	_event
 };
 
 void *View = &_View;
