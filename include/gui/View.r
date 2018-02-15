@@ -16,6 +16,6 @@ struct View {
 	ALLEGRO_BITMAP *savedBitmap;	// used by zoom functions
 };
 
-extern void *(*p_ctor) ( void *, va_list *app );
+extern void *(*View_ctor) ( void *, va_list *app );
 
 #endif

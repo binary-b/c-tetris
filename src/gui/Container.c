@@ -1,4 +1,4 @@
-#include "gui/GUIObj.r"
+#include "gui/GUIHandler.r"
 #include "gui/View.r"
 #include "gui/Container.h"
 
@@ -6,6 +6,11 @@
 #include "gui/GUIObj.h"
 #include "List.h"
 #include "gui/View.h"
+#include "event/MouseEvent.h"
+#include "event/MouseMoved.h"
+
+#include "macros.h"
+#include "debug.h"
 
 struct Container {
 	struct View _p;
@@ -53,14 +58,23 @@ static void _draw ( void *_self ) {
 	list_apply ( self->views, _draw_view );
 }
 
-struct GUIObj _Container = {
+static void _event ( void *_self, void *ev ) {
+	TRACEF (( "some event have been called" ));
+	if ( typeOf (ev) == MouseMoved ) {
+		Pos pos = mev_getPos ( ev );
+		TRACEF (( "mouse moved to pos (%d, %d)", pos.x, pos.y ));
+	}
+}
+
+struct GUIHandler _Container = {
 	sizeof (struct Container),
 	_ctor,
 	_dtor,
 	NULL,
 	NULL,
 	_update,
-	_draw
+	_draw,
+	_event
 };
 
 void *Container = &_Container;

@@ -63,7 +63,8 @@ package event {
 		CLOCKWISE,
 		COURTER_CLOCKWISE
 	}
-	class Event {
+	interface Event {
+		{abstract} void zoomOnView ( Event ev, View view );
 	}
 	class MouseEvent {
 		Pos pos;
@@ -139,9 +140,11 @@ Stack --|> Object
 GUIObj --|> Class
 GUIHandler --|> GUIObj
 
-Event --|> Object
-MouseEvent --|> Event
-KeyboardEvent --|> Event
+Event --|> Class
+MouseEvent --* Event
+KeyboardEvent --* Event
+MouseEvent --|> Object
+KeyboardEvent --|> Object
 
 MouseMoved --|> MouseEvent
 MouseEntered --|> MouseEvent

@@ -1,23 +1,11 @@
-#include "Class.r"
-#include "Object.r"
-#include "event/Event.h"
+#include <assert.h>
 
-struct Event {
-	struct Object _p;
-};
+#include "event/Event.r"
 
-void * _ctor ( void *_self, va_list *app ) {
-	return _self;
+void event_zoomOnView ( void *_self, void *view ) {
+	struct Event **self = _self;
+
+	assert (*self);
+	if ( (*self)->zoom )
+		(*self)->zoom ( _self, view );
 }
-void _dtor ( void *_self ) {
-}
-
-struct Class _Event = {
-	sizeof ( struct Event ),
-	_ctor,
-	_dtor,
-	NULL,
-	NULL
-};
-
-void *Event = &_Event;

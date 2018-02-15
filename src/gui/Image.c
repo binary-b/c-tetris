@@ -1,7 +1,7 @@
 #include <allegro5/allegro.h>
 #include <assert.h>
 
-#include "gui/GUIObj.r"
+#include "gui/GUIHandler.r"
 #include "gui/View.r"
 
 #include "gui/View.h"
@@ -14,7 +14,7 @@ struct Image {
 };
 
 static void *_ctor ( void *_self, va_list *app ) {
-	p_ctor ( _self, app );
+	View_ctor ( _self, app );
 
 	struct Image *self = _self;
 	char *name;
@@ -59,14 +59,15 @@ static void _draw ( void *_self ) {
 	al_draw_bitmap ( self->image, 0, 0, 0 );
 }
 
-struct GUIObj _Image = {
+struct GUIHandler _Image = {
 	sizeof ( struct Image ),
 	_ctor,
 	_dtor,
 	NULL,
 	NULL,
 	_update,
-	_draw
+	_draw,
+	NULL
 };
 
 void *Image = &_Image;

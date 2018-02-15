@@ -34,7 +34,12 @@ void delete ( void *_self ) {
 	free ( self );
 }
 
-void *clone ( void *self ) {
+void *clone ( void *_self ) {
+	const struct Class **self = _self;
+
+	assert ( self );
+	if ( (*self)->clone )
+		return (*self)->clone ( _self );
 	return NULL;
 }
 

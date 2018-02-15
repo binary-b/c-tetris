@@ -7,9 +7,13 @@
 
 #include "Class.h"
 #include "gui/GUIObj.h"
+#include "gui/GUIHandler.h"
 #include "gui/Window.h"
 #include "Stack.h"
 #include "gui/View.h"
+
+#include "event/Event.h"
+#include "event/MouseMoved.h"
 
 #include "macros.h"
 #include "debug.h"
@@ -41,6 +45,7 @@ static void * _ctor ( void *_self, va_list *app ) {
 	 */
 	queue = al_create_event_queue ();
 	al_register_event_source ( queue, al_get_display_event_source (display) );
+	al_register_event_source ( queue, al_get_mouse_event_source () );
 
 	self->rect = rect;
 	self->display = display;
@@ -65,19 +70,24 @@ static void * _clone ( void *_self ) {
 static int _update ( void *_self ) {
 	TRACEF (( "Window.update()" ));
 	struct Window *self = _self;
-	ALLEGRO_EVENT ev;
+	ALLEGRO_EVENT al_ev;
+	void *ev;
+	void *view = stack_peek (self->views);
 
-	while ( al_get_next_event (self->queue, &ev) ) {
-		switch ( ev.type ) {
+	while ( al_get_next_event (self->queue, &al_ev) ) {
+		switch ( al_ev.type ) {
 			case ALLEGRO_EVENT_DISPLAY_CLOSE:
 				return WIN_UPDATE_CLOSED;
+			case ALLEGRO_EVENT_MOUSE_AXES:
+				ev = new ( MouseMoved, (Pos) {al_ev.mouse.x, al_ev.mouse.y} );
+				event ( view, ev );
 		}
 	}
 
 	/*
 	 * update top window
 	 */
-	void *view = stack_peek (self->views);
+	view = stack_peek (self->views);
 	if ( view != NULL )
 		update ( view );
 

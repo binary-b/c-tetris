@@ -6,7 +6,7 @@
 #include <allegro5/allegro_ttf.h>
 
 #include "gui/View.r"
-#include "gui/GUIObj.r"
+#include "gui/GUIHandler.r"
 #include "gui/Label.h"
 
 #include "gui/View.h"
@@ -22,7 +22,7 @@ struct Label {
 };
 
 static void * _ctor ( void *_self, va_list *app ) {
-	p_ctor ( _self, app );
+	View_ctor ( _self, app );
 
 	struct Label *self = _self;
 	char *text;
@@ -71,14 +71,15 @@ static void _draw ( void *_self ) {
 	al_draw_text ( self->font, al_map_rgb (255, 255, 0), 0.0, 0.0, 0, self->text );
 }
 
-struct GUIObj _Label = {
+struct GUIHandler _Label = {
 	sizeof ( struct Label ),
 	_ctor,
 	_dtor,
 	NULL,
 	NULL,
 	_update,
-	_draw
+	_draw,
+	NULL
 };
 
 void *Label = &_Label;

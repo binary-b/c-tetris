@@ -1,11 +1,17 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 
+#include <assert.h>
+
 #include "gui/GUIHandler.r"
 #include "Object.r"
 
+#include "Class.h"
 #include "gui/View.h"
 #include "gui/View.r"
+
+#include "event/MouseEvent.h"
+#include "event/MouseMoved.h"
 
 #include "macros.h"
 #include "debug.h"
@@ -18,6 +24,7 @@ static void *_ctor ( void *_self, va_list *app ) {
 
 	return _self;
 }
+void *(*View_ctor) ( void *, va_list *app ) = _ctor;
 static void _dtor ( void *self ) {
 }
 
@@ -36,6 +43,10 @@ static void _draw ( void *_self ) {
 
 static void _event ( void *_self, void *ev ) {
 	TRACEF (( "some event have been called" ));
+	if ( typeOf (ev) == MouseMoved ) {
+		Pos pos = mev_getPos ( ev );
+		TRACEF (( "mouse moved to pos (%d, %d)", pos.x, pos.y ));
+	}
 }
 
 void view_zoomIn ( void *_self ) {
@@ -76,8 +87,6 @@ bool view_isRezisable ( void *_self ) {
 
 	return self->resizable;
 }
-
-void *(*p_ctor) ( void *, va_list *app ) = _ctor;
 
 struct GUIHandler _View = {
 	sizeof ( struct View ),
