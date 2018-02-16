@@ -1,4 +1,4 @@
-PROG_NAME = tetris
+PROG_NAME = calculator
 
 CC = gcc
 CFLAGS = -Wall -Wfatal-errors -ggdb -Iinclude

@@ -4,6 +4,8 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
 
+#include <stdio.h>
+
 #include "Class.h"
 #include "gui/GUIObj.h"
 #include "gui/Window.h"
@@ -38,31 +40,259 @@ int main ( int argc, char **argv ) {
 }
 
 static void *_label;
+static int _back_reg;
+static int _curr_reg;
+static char _operator;
 static void _button_call ( void *button ) {
-	label_setText ( _label, "Button Clicked!... Long, long text" );
+	char textBuf [50];
+	char *text = textBuf;
+	int val = btn_getValue ( button );
+
+	if ( val >= '0' && val <= '9' ) {
+		if ( _operator == '=' )
+			_operator = '\0', _curr_reg = 0;
+		_curr_reg *= 10, _curr_reg += val - '0';
+	} else if ( val != '=' ) {
+		_operator = val;
+		_back_reg = _curr_reg;
+		_curr_reg = 0;
+	} else if ( val == '=' ) {
+		if ( _operator == '+' )
+			_curr_reg += _back_reg;
+		else if ( _operator == '-' )
+			_curr_reg = _back_reg - _curr_reg;
+		else if ( _operator == '*' )
+			_curr_reg *= _back_reg;
+		else if ( _operator == '/' ) {
+			if ( _curr_reg != 0 )
+				_curr_reg = _back_reg / _curr_reg;
+		}
+
+		_operator = '=';
+		_back_reg = 0;
+	}
+
+	sprintf ( textBuf, "%d", _curr_reg );
+	label_setText ( _label, text );
 }
 void game_loop ( void ) {
 	extern bool game_stop;
 	ALLEGRO_EVENT_QUEUE *queue;
 	ALLEGRO_TIMER *timer;
 
-	void *view, *container;
+	_curr_reg = 0;
+	_back_reg = 0;
+	_operator = '\0';
+
+	int h = 50;
+
+	void *button, *label, *container;
+	void *window;
 
 	timer = al_create_timer ( 1 / (double) 60 );
 	queue = al_create_event_queue ();
 	al_register_event_source ( queue, al_get_timer_event_source (timer) );
 
 	container = new ( Container );
-	void *window = new ( Window, (Rect) {0, 0, 720, 480} );
-	view = new ( View, (Rect) {10, 10, 100, 100} );
-	cont_addView ( container, view );
-	view = new ( Image, (Rect) {400, 400, 100, 100}, "test_image.png" );
-	cont_addView ( container, view );
 
-	_label = new ( Label, (Rect) {200, 0, 100, 100}, "some example text", 20 );
-	view = new ( Button, (Rect) {200, 10, 0, 0}, _button_call );
-	btn_setLabel ( view, _label );
-	cont_addView ( container, view );
+	_label = new ( Label, (Rect) {h, h, 11*h, 2*h}, "Some text", h ); 
+	cont_addView ( container, _label );
+	{	// adding buttons
+		{ // 7
+			button = new ( Button, (Rect) {h, 4*h, 2*h, 2*h}, _button_call );
+			btn_setValue ( button, '7' );
+			char text [2];
+			text [0] = btn_getValue (button);
+			text [1] = '\0';
+			label = new (Label, (Rect) {0, 0, 0, 0}, text, h);
+			label_setMinWidth ( label, 2*h - 2 * 10 );
+			label_setPadding ( label, 10 );
+			btn_setLabel ( button, label );
+			cont_addView ( container, button );
+		}
+		{ // 8
+			button = new ( Button, (Rect) {3*h, 4*h, 2*h, 2*h}, _button_call );
+			btn_setValue ( button, '8' );
+			char text [2];
+			text [0] = btn_getValue (button);
+			text [1] = '\0';
+			label = new (Label, (Rect) {0, 0, 0, 0}, text, h);
+			label_setMinWidth ( label, 2*h - 2 * 10 );
+			label_setPadding ( label, 10 );
+			btn_setLabel ( button, label );
+			cont_addView ( container, button );
+		}
+		{ // 9
+			button = new ( Button, (Rect) {5*h, 4*h, 2*h, 2*h}, _button_call );
+			btn_setValue ( button, '9' );
+			char text [2];
+			text [0] = btn_getValue (button);
+			text [1] = '\0';
+			label = new (Label, (Rect) {0, 0, 0, 0}, text, h);
+			label_setMinWidth ( label, 2*h - 2 * 10 );
+			label_setPadding ( label, 10 );
+			btn_setLabel ( button, label );
+			cont_addView ( container, button );
+		}
+		{ // '/' - divide
+			button = new ( Button, (Rect) {7*h, 4*h, 2*h, 2*h}, _button_call );
+			btn_setValue ( button, '/' );
+			char text [2];
+			text [0] = btn_getValue (button);
+			text [1] = '\0';
+			label = new (Label, (Rect) {0, 0, 0, 0}, text, h);
+			label_setMinWidth ( label, 2*h - 2 * 10 );
+			label_setPadding ( label, 10 );
+			btn_setLabel ( button, label );
+			cont_addView ( container, button );
+		}
+		{ // 4
+			button = new ( Button, (Rect) {h, 6*h, 2*h, 2*h}, _button_call );
+			btn_setValue ( button, '4' );
+			char text [2];
+			text [0] = btn_getValue (button);
+			text [1] = '\0';
+			label = new (Label, (Rect) {0, 0, 0, 0}, text, h);
+			label_setMinWidth ( label, 2*h - 2 * 10 );
+			label_setPadding ( label, 10 );
+			btn_setLabel ( button, label );
+			cont_addView ( container, button );
+		}
+		{ // 5
+			button = new ( Button, (Rect) {3*h, 6*h, 2*h, 2*h}, _button_call );
+			btn_setValue ( button, '5' );
+			char text [2];
+			text [0] = btn_getValue (button);
+			text [1] = '\0';
+			label = new (Label, (Rect) {0, 0, 0, 0}, text, h);
+			label_setMinWidth ( label, 2*h - 2 * 10 );
+			label_setPadding ( label, 10 );
+			btn_setLabel ( button, label );
+			cont_addView ( container, button );
+		}
+		{ // 6
+			button = new ( Button, (Rect) {5*h, 6*h, 2*h, 2*h}, _button_call );
+			btn_setValue ( button, '6' );
+			char text [2];
+			text [0] = btn_getValue (button);
+			text [1] = '\0';
+			label = new (Label, (Rect) {0, 0, 0, 0}, text, h);
+			label_setMinWidth ( label, 2*h - 2 * 10 );
+			label_setPadding ( label, 10 );
+			btn_setLabel ( button, label );
+			cont_addView ( container, button );
+		}
+		{ // '*' - multiply
+			button = new ( Button, (Rect) {7*h, 6*h, 2*h, 2*h}, _button_call );
+			btn_setValue ( button, '*' );
+			char text [2];
+			text [0] = btn_getValue (button);
+			text [1] = '\0';
+			label = new (Label, (Rect) {0, 0, 0, 0}, text, h);
+			label_setMinWidth ( label, 2*h - 2 * 10 );
+			label_setPadding ( label, 10 );
+			btn_setLabel ( button, label );
+			cont_addView ( container, button );
+		}
+		{ // 1
+			button = new ( Button, (Rect) {h, 8*h, 2*h, 2*h}, _button_call );
+			btn_setValue ( button, '1' );
+			char text [2];
+			text [0] = btn_getValue (button);
+			text [1] = '\0';
+			label = new (Label, (Rect) {0, 0, 0, 0}, text, h);
+			label_setMinWidth ( label, 2*h - 2 * 10 );
+			label_setPadding ( label, 10 );
+			btn_setLabel ( button, label );
+			cont_addView ( container, button );
+		}
+		{ // 2
+			button = new ( Button, (Rect) {3*h, 8*h, 2*h, 2*h}, _button_call );
+			btn_setValue ( button, '2' );
+			char text [2];
+			text [0] = btn_getValue (button);
+			text [1] = '\0';
+			label = new (Label, (Rect) {0, 0, 0, 0}, text, h);
+			label_setMinWidth ( label, 2*h - 2 * 10 );
+			label_setPadding ( label, 10 );
+			btn_setLabel ( button, label );
+			cont_addView ( container, button );
+		}
+		{ // 3
+			button = new ( Button, (Rect) {5*h, 8*h, 2*h, 2*h}, _button_call );
+			btn_setValue ( button, '3' );
+			char text [2];
+			text [0] = btn_getValue (button);
+			text [1] = '\0';
+			label = new (Label, (Rect) {0, 0, 0, 0}, text, h);
+			label_setMinWidth ( label, 2*h - 2 * 10 );
+			label_setPadding ( label, 10 );
+			btn_setLabel ( button, label );
+			cont_addView ( container, button );
+		}
+		{ // '-' - substract
+			button = new ( Button, (Rect) {7*h, 8*h, 2*h, 2*h}, _button_call );
+			btn_setValue ( button, '-' );
+			char text [2];
+			text [0] = btn_getValue (button);
+			text [1] = '\0';
+			label = new (Label, (Rect) {0, 0, 0, 0}, text, h);
+			label_setMinWidth ( label, 2*h - 2 * 10 );
+			label_setPadding ( label, 10 );
+			btn_setLabel ( button, label );
+			cont_addView ( container, button );
+		}
+		{ // 0
+			button = new ( Button, (Rect) {h, 10*h, 2*h, 2*h}, _button_call );
+			btn_setValue ( button, '0' );
+			char text [2];
+			text [0] = btn_getValue (button);
+			text [1] = '\0';
+			label = new (Label, (Rect) {0, 0, 0, 0}, text, h);
+			label_setMinWidth ( label, 2*h - 2 * 10 );
+			label_setPadding ( label, 10 );
+			btn_setLabel ( button, label );
+			cont_addView ( container, button );
+		}
+		{ // '.' - dot (comma numbers)
+			button = new ( Button, (Rect) {3*h, 10*h, 2*h, 2*h}, _button_call );
+			btn_setValue ( button, '.' );
+			char text [2];
+			text [0] = btn_getValue (button);
+			text [1] = '\0';
+			label = new (Label, (Rect) {0, 0, 0, 0}, text, h);
+			label_setMinWidth ( label, 2*h - 2 * 10 );
+			label_setPadding ( label, 10 );
+			btn_setLabel ( button, label );
+			cont_addView ( container, button );
+		}
+		{ // '=' - is equal
+			button = new ( Button, (Rect) {5*h, 10*h, 2*h, 2*h}, _button_call );
+			btn_setValue ( button, '=' );
+			char text [2];
+			text [0] = btn_getValue (button);
+			text [1] = '\0';
+			label = new (Label, (Rect) {0, 0, 0, 0}, text, h);
+			label_setMinWidth ( label, 2*h - 2 * 10 );
+			label_setPadding ( label, 10 );
+			btn_setLabel ( button, label );
+			cont_addView ( container, button );
+		}
+		{ // '+' - multiply
+			button = new ( Button, (Rect) {7*h, 10*h, 2*h, 2*h}, _button_call );
+			btn_setValue ( button, '+' );
+			char text [2];
+			text [0] = btn_getValue (button);
+			text [1] = '\0';
+			label = new (Label, (Rect) {0, 0, 0, 0}, text, h);
+			label_setMinWidth ( label, 2*h - 2 * 10 );
+			label_setPadding ( label, 10 );
+			btn_setLabel ( button, label );
+			cont_addView ( container, button );
+		}
+	}
+
+	window = new ( Window, (Rect) {0, 0, 13*h, 16*h} );
 	win_addView ( window, container );
 
 	al_start_timer ( timer );

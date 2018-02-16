@@ -20,6 +20,7 @@
 
 struct Button {
 	struct View _p;
+	int val;
 	bool active;
 	void *label;
 	void (*f) (void *self);
@@ -39,14 +40,18 @@ static void *_ctor ( void *_self, va_list *app ) {
 
 void btn_setLabel ( void *_self, void *label ) {
 	struct Button *self = _self;
-	Rect r;
+	Rect rl, rb;
 
 	self->label = label;
-	r = view_getRect ( label );
-	view_setRect ( self, r );
-	r.x = 0;
-	r.y = 0;
-	view_setRect ( label, r );
+	rl = view_getRect ( label );
+	rb = view_getRect ( self );
+
+	rb.h = rl.h;
+	rb.w = rl.w;
+	view_setRect ( self, rb );
+	rl.x = 0;
+	rl.y = 0;
+	view_setRect ( label, rl );
 }
 void *btn_getLabel ( void *_self ) {
 	struct Button *self = _self;
@@ -55,14 +60,15 @@ void *btn_getLabel ( void *_self ) {
 
 static void _draw ( void *_self ) {
 	struct Button *self = _self;
-	ALLEGRO_COLOR color = al_map_rgb ( 255, 0, 0 );
+	ALLEGRO_COLOR color = al_map_rgb ( 50, 50, 50 );
 
 	if ( self->active ) {
-		color = al_map_rgb ( 0, 255, 0 );
+		color = al_map_rgb ( 150, 150, 150 );
 	}
 
 	al_clear_to_color ( color );
-	draw ( self->label );
+	if ( self->label )
+		draw ( self->label );
 }
 
 static void _event ( void *_self, void *ev ) {
@@ -76,9 +82,18 @@ static void _event ( void *_self, void *ev ) {
 		btn_call (self);
 }
 
+void btn_setValue ( void *_self, int val ) {
+	struct Button *self = _self;
+	self->val = val;
+}
+int btn_getValue ( void *_self ) {
+	struct Button *self = _self;
+	return self->val;
+}
+
 void btn_call ( void *_self ) {
 	struct Button *self = _self;
-	TRACE;
+	/*TRACE;*/
 	assert ( self->f );
 	self->f ( self );
 }

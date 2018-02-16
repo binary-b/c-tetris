@@ -48,6 +48,7 @@ void cont_addView ( void *_self, void *view ) {
 }
 
 static void _update_view ( int id, void *obj ) {
+	/*TRACEF (( "_update_view" ));*/
 	update ( obj );
 }
 static int _update ( void *_self ) {
@@ -59,6 +60,7 @@ static int _update ( void *_self ) {
 }
 
 static void _draw_view ( int id, void *obj ) {
+	/*TRACEF (( "_draw_view" ));*/
 	view_zoomIn ( obj );
 	draw ( obj );
 	view_zoomRestore ( obj );
@@ -77,25 +79,27 @@ static void _event_view ( int id, void *view ) {
 	void *ev = NULL;
 
 	if ( rect_cont_point ( rect, pos ) ) {
-		/*TRACEF (( "Mouse over some view" ));*/
+		/*TRACEF (( "Mouse enters some view" ));*/
 		if ( view == _event_self->actView ) {
  			ev = clone ( _event_ev );
 			event_zoomOnView (ev, view);
 			event ( view, ev );
 		} else {
+			/*TRACEF (( "Mouse over some view" ));*/
 			_event_self->actView = view;
 
 			ev = new ( MouseEntered, pos );
 			event_zoomOnView (ev, view);
 			event ( view, ev );
-			
 		}
 	} else if ( view == _event_self->actView ) {
+		/*TRACEF (( "Mouse leaves some view" ));*/
 		ev = new ( MouseLeft, pos );
 		event_zoomOnView (ev, view);
 		event ( view, ev );
 		_event_self->actView = NULL;
-	}
+	} else
+		/*TRACEF (( "Mouse unefined" ));*/
 
 	delete ( ev );
 }
@@ -108,8 +112,10 @@ static void _event ( void *_self, void *ev ) {
 		list_apply ( self->views, _event_view );
 	} else if ( typeOf (ev) == MouseButtonUp ||
 			typeOf (ev) == MouseButtonDown ) {
-		event_zoomOnView ( ev, self->actView );
-		event ( self->actView, ev );
+		if ( self->actView ) {
+			event ( self->actView, ev );
+			event_zoomOnView ( ev, self->actView );
+		}
 	}
 }
 
