@@ -3,4 +3,6 @@
 
 extern void *Label;
 
+void label_setText ( void *self, char *text );
+
 #endif

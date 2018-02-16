@@ -37,8 +37,9 @@ int main ( int argc, char **argv ) {
 	return 0;
 }
 
+static void *_label;
 static void _button_call ( void *button ) {
-	TRACEF (( "Button have been clicked" ));
+	label_setText ( _label, "Button Clicked!... Long, long text" );
 }
 void game_loop ( void ) {
 	extern bool game_stop;
@@ -46,7 +47,6 @@ void game_loop ( void ) {
 	ALLEGRO_TIMER *timer;
 
 	void *view, *container;
-	void *label;
 
 	timer = al_create_timer ( 1 / (double) 60 );
 	queue = al_create_event_queue ();
@@ -59,9 +59,9 @@ void game_loop ( void ) {
 	view = new ( Image, (Rect) {400, 400, 100, 100}, "test_image.png" );
 	cont_addView ( container, view );
 
-	label = new ( Label, (Rect) {200, 0, 100, 100}, "some example text", 20 );
+	_label = new ( Label, (Rect) {200, 0, 100, 100}, "some example text", 20 );
 	view = new ( Button, (Rect) {200, 10, 0, 0}, _button_call );
-	btn_setLabel ( view, label );
+	btn_setLabel ( view, _label );
 	cont_addView ( container, view );
 	win_addView ( window, container );
 

@@ -21,7 +21,6 @@
 struct Button {
 	struct View _p;
 	bool active;
-	int padding;
 	void *label;
 	void (*f) (void *self);
 };
@@ -32,7 +31,6 @@ static void *_ctor ( void *_self, va_list *app ) {
 	struct Button *self = _self;
 
 	self->active = false;
-	self->padding = 10;
 	self->label = NULL;
 	self->f = va_arg ( *app, void (*) (void *self) );
 
@@ -41,19 +39,14 @@ static void *_ctor ( void *_self, va_list *app ) {
 
 void btn_setLabel ( void *_self, void *label ) {
 	struct Button *self = _self;
-	Rect rl, rb;
+	Rect r;
 
 	self->label = label;
-	rl = view_getRect ( label );
-	rb = view_getRect ( self );
-
-	rb.w = rl.w + 2 * self->padding;
-	rb.h = rl.h + 2 * self->padding;
-	view_setRect ( self, rb );
-
-	rl.x = self->padding;
-	rl.y = self->padding;
-	view_setRect ( label, rl );
+	r = view_getRect ( label );
+	view_setRect ( self, r );
+	r.x = 0;
+	r.y = 0;
+	view_setRect ( label, r );
 }
 void *btn_getLabel ( void *_self ) {
 	struct Button *self = _self;
@@ -69,11 +62,7 @@ static void _draw ( void *_self ) {
 	}
 
 	al_clear_to_color ( color );
-	if ( self->label ) {
-		view_zoomIn ( self->label );
-		draw ( self->label );
-		view_zoomRestore ( self->label );
-	}
+	draw ( self->label );
 }
 
 static void _event ( void *_self, void *ev ) {
@@ -89,6 +78,7 @@ static void _event ( void *_self, void *ev ) {
 
 void btn_call ( void *_self ) {
 	struct Button *self = _self;
+	TRACE;
 	assert ( self->f );
 	self->f ( self );
 }
