@@ -60,7 +60,7 @@ void game_loop ( void ) {
 	cont_addView ( container, view );
 
 	label = new ( Label, (Rect) {200, 0, 100, 100}, "some example text", 20 );
-	view = new ( Button, (Rect) {0, 0, 0, 0}, _button_call );
+	view = new ( Button, (Rect) {200, 10, 0, 0}, _button_call );
 	btn_setLabel ( view, label );
 	cont_addView ( container, view );
 	win_addView ( window, container );
