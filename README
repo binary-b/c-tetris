@@ -1,0 +1,30 @@
+Filip Jagiełłowicz, winter term project (C begginer Course)
+
+The most interesting part of this project is class interface (classes,
+objects, interfaces along with inherietance) implementation in pure C.
+
+The most important classes are described in their header files.
+Alongside with this project git repository have been created. Looking
+in 'git log' may help understanding the project inself.
+The file 'debug.h' contains useful macros which may help tracking
+the program execution.
+
+In the folder 'docs' is an image of all classes explaining how they
+are related to each others.
+
+'*.r' files are 'private headers' - they contains informations on
+implementation. They should not included when not needed in order to
+follow information hidding programming pattern.
+
+The project is finally aimed at creating short and redable library/
+frame work which will provide simple, most common classes without
+restricting user.
+
+Compiling:
+  - install all required dependences
+  - run 'make clobber && make'
+  - start application with './calculator'
+
+Used libraries (dependences):
+  - standarc C library (GNU version)
+  - allegro 5.2.3-2
