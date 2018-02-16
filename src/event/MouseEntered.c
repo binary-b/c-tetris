@@ -1,6 +1,5 @@
 #include "event/Event.r"
 #include "event/MouseEvent.r"
-#include "event/MouseEvent.h"
 
 #include "event/MouseEntered.h"
 
@@ -12,7 +11,7 @@ static struct Event _MouseEntered = {
 	sizeof (struct MouseEntered),
 	MouseEvent_ctor,
 	NULL,
-	MouseEvent_clone,
+	NULL,
 	NULL,
 	MouseEvent_zoom
 };

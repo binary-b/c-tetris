@@ -13,9 +13,4 @@ typedef struct {
 	int y;
 } Pos;
 
-typedef struct {
-	int x, y;
-	int w, h;
-} Rect;
-
 #endif

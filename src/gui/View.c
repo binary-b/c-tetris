@@ -2,6 +2,7 @@
 #include <allegro5/allegro_primitives.h>
 
 #include <assert.h>
+#include <stdarg.h>
 
 #include "gui/GUIHandler.r"
 #include "Object.r"
@@ -14,6 +15,7 @@
 #include "event/MouseMoved.h"
 
 #include "macros.h"
+#include "rect.h"
 #include "debug.h"
 
 static void *_ctor ( void *_self, va_list *app ) {
@@ -29,11 +31,11 @@ static void _dtor ( void *self ) {
 }
 
 static int _update ( void *_self ) {
-	TRACEF (( "View.update()" ));
+	/*TRACEF (( "View.update()" ));*/
 	return 0;
 }
 static void _draw ( void *_self ) {
-	TRACEF (( "View.draw()" ));
+	/*TRACEF (( "View.draw()" ));*/
 	struct View *self = _self;
 	Rect r = self->rect;
 
@@ -42,7 +44,7 @@ static void _draw ( void *_self ) {
 }
 
 static void _event ( void *_self, void *ev ) {
-	TRACEF (( "some event have been called" ));
+	/*TRACEF (( "some event have been called" ));*/
 	if ( typeOf (ev) == MouseMoved ) {
 		Pos pos = mev_getPos ( ev );
 		TRACEF (( "mouse moved to pos (%d, %d)", pos.x, pos.y ));

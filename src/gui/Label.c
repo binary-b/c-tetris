@@ -62,11 +62,11 @@ static void _dtor ( void *_self ) {
 }
 
 static int _update ( void *obj ) {
-	TRACEF (( "Label.update ()" ));
+	/*TRACEF (( "Label.update ()" ));*/
 	return 0;
 }
 static void _draw ( void *_self ) {
-	TRACEF (( "Label.draw ()" ));
+	/*TRACEF (( "Label.draw ()" ));*/
 	struct Label *self = _self;
 	al_draw_text ( self->font, al_map_rgb (255, 255, 0), 0.0, 0.0, 0, self->text );
 }

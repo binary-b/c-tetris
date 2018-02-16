@@ -1,5 +1,5 @@
-#ifndef _MOUSE_MOVED_H_
-#define _MOUSE_MOVED_H_
+#ifndef _MOUSE_LEFT_H_
+#define _MOUSE_LEFT_H_
 
 extern void *MouseLeft;
 

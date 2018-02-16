@@ -12,7 +12,6 @@ struct MouseEvent {
 };
 
 void *MouseEvent_ctor ( void *self, va_list *app );
-void *MouseEvent_clone ( void *self );
 void MouseEvent_zoom ( void *self, void *ev );
 
 #endif

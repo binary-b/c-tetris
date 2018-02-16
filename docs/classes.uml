@@ -81,6 +81,10 @@ package event {
 		enum mouse_button button;
 		new ( enum mouse_button button );
 	}
+	class MouseButtonDown {
+	}
+	class MouseButtonUp {
+	}
 	class KeyboardEvent {
 	}
 }
@@ -119,6 +123,7 @@ package gui {
 		Image image;
 		void (*f) (Button button);
 		new ( void (*f) (Button button) );
+		call ( Button button );
 	}
 	class Container {
 		addView ( View view );
@@ -150,6 +155,8 @@ MouseMoved --|> MouseEvent
 MouseEntered --|> MouseEvent
 MouseLeft --|> MouseEvent
 MouseButton --|> MouseEvent
+MouseButtonDown --|>MouseButton
+MouseButtonUp --|>MouseButton
 
 Window --* GUIObj
 Window --|> Object

@@ -1,18 +1,32 @@
+#include <stdarg.h>
+
 #include "event/Event.r"
 #include "event/MouseEvent.r"
 #include "event/MouseEvent.h"
 
 #include "event/MouseButton.h"
+#include "event/MouseButton.r"
 
-struct MouseButton {
-	struct MouseEvent _p;
-};
+void *MouseButton_ctor ( void *_self, va_list *app ) {
+	MouseEvent_ctor ( _self, app );
+
+	struct MouseButton *self = _self;
+	self->button = va_arg ( *app, int );
+
+	return _self;
+}
+
+int mev_getButton ( void *_self ) {
+	struct MouseButton *self = _self;
+
+	return self->button;
+}
 
 static struct Event _MouseButton = {
 	sizeof (struct MouseButton),
-	MouseEvent_ctor,
+	MouseButton_ctor,
 	NULL,
-	MouseEvent_clone,
+	NULL,
 	NULL,
 	MouseEvent_zoom
 };

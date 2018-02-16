@@ -1,11 +1,12 @@
+#include <stdlib.h>
+#include <stdarg.h>
+#include <assert.h>
+#include <string.h>
+
 #include "Class.r"
 #include "Class.h"
 
 #include "debug.h"
-
-#include <stdlib.h>
-#include <stdarg.h>
-#include <assert.h>
 
 void *new ( void *_class, ... ) {
 	struct Class *class = _class;
@@ -27,7 +28,8 @@ void *new ( void *_class, ... ) {
 void delete ( void *_self ) {
 	const struct Class **self = _self;
 
-	assert ( self );
+	if ( !self )
+		return;
 	if ( (*self)->dtor ) {
 		(*self)->dtor ( _self );
 	}
@@ -36,11 +38,18 @@ void delete ( void *_self ) {
 
 void *clone ( void *_self ) {
 	const struct Class **self = _self;
+	void *ret;
 
 	assert ( self );
 	if ( (*self)->clone )
 		return (*self)->clone ( _self );
-	return NULL;
+	else {
+		ret = malloc ( (*self)->size );
+		if ( ret != NULL )
+			memcpy ( ret, _self, (*self)->size );
+	}
+
+	return ret;
 }
 
 bool differ ( void *obj1, void *obj2 ) {

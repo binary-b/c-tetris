@@ -7,6 +7,7 @@
 
 #include "Object.r"
 #include "macros.h"
+#include "rect.h"
 
 struct View {
 	struct Object _p;

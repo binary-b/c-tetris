@@ -11,6 +11,7 @@
 #include "gui/Container.h"
 #include "gui/Label.h"
 #include "gui/Image.h"
+#include "gui/Button.h"
 
 #include "macros.h"
 #include "test.h"
@@ -36,14 +37,18 @@ int main ( int argc, char **argv ) {
 	return 0;
 }
 
+static void _button_call ( void *button ) {
+	TRACEF (( "Button have been clicked" ));
+}
 void game_loop ( void ) {
 	extern bool game_stop;
 	ALLEGRO_EVENT_QUEUE *queue;
 	ALLEGRO_TIMER *timer;
 
 	void *view, *container;
+	void *label;
 
-	timer = al_create_timer ( 1 / (double) 1 );
+	timer = al_create_timer ( 1 / (double) 60 );
 	queue = al_create_event_queue ();
 	al_register_event_source ( queue, al_get_timer_event_source (timer) );
 
@@ -53,7 +58,10 @@ void game_loop ( void ) {
 	cont_addView ( container, view );
 	view = new ( Image, (Rect) {400, 400, 100, 100}, "test_image.png" );
 	cont_addView ( container, view );
-	view = new ( Label, (Rect) {200, 0, 100, 100}, "some example text", 20 );
+
+	label = new ( Label, (Rect) {200, 0, 100, 100}, "some example text", 20 );
+	view = new ( Button, (Rect) {0, 0, 0, 0}, _button_call );
+	btn_setLabel ( view, label );
 	cont_addView ( container, view );
 	win_addView ( window, container );
 
@@ -64,6 +72,7 @@ void game_loop ( void ) {
 
 		if ( update (window) == WIN_UPDATE_CLOSED )
 			break;
+		al_clear_to_color ( al_map_rgb (0, 0, 0) );
 		draw ( window );
 		
 		al_flip_display ();

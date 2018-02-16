@@ -5,7 +5,7 @@
 
 #define CONT_EVENT \
 	CONT_CLASS \
-	void (*zoom) ( void *self, void *ev );
+	void (*zoom) ( void *self, void *view );
 
 struct Event {
 	CONT_EVENT

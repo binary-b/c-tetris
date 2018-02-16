@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
@@ -10,6 +11,7 @@
 
 #include "Class.h"
 #include "gui/View.h"
+
 #include "macros.h"
 
 void *MouseEvent_ctor ( void *_self, va_list *app ) {
@@ -18,17 +20,9 @@ void *MouseEvent_ctor ( void *_self, va_list *app ) {
 	return _self;
 }
 
-void *MouseEvent_clone ( void *_self ) {
-	size_t size = sizeof ( _self );
-	void *new = malloc ( size );
-	memcpy ( new, _self, size );
-
-	return new;
-}
-
-void MouseEvent_zoom ( void *_self, void *ev ) {
+void MouseEvent_zoom ( void *_self, void *view ) {
 	struct MouseEvent *self = _self;
-	Rect r = view_getRect ( _self );
+	Rect r = view_getRect ( view );
 
 	self->pos.x -= r.x;
 	self->pos.y -= r.y;
@@ -43,7 +37,7 @@ static struct Event _MouseEvent = {
 	sizeof ( struct MouseEvent ),
 	MouseEvent_ctor,
 	NULL,
-	MouseEvent_clone,
+	NULL,
 	NULL,
 	MouseEvent_zoom
 };

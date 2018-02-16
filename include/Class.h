@@ -4,6 +4,14 @@
 #include <stdlib.h>
 #include "macros.h"
 
+/*
+ * Class:
+ *   - class descriptor
+ *
+ * delete:
+ *   - when called on NULL does nothing
+ */
+
 void *new ( void *class, ... );
 void delete ( void *self );
 void *clone ( void *self );

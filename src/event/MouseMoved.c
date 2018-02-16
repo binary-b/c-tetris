@@ -12,7 +12,7 @@ static struct Event _MouseMoved = {
 	sizeof (struct MouseMoved),
 	MouseEvent_ctor,
 	NULL,
-	MouseEvent_clone,
+	NULL,
 	NULL,
 	MouseEvent_zoom
 };

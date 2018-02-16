@@ -30,6 +30,8 @@
  */
 
 #include "macros.h"
+#include "rect.h"
+
 extern void *View;
 
 void view_zoomIn ( void *self );

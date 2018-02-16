@@ -14,6 +14,8 @@
 
 #include "event/Event.h"
 #include "event/MouseMoved.h"
+#include "event/MouseButtonDown.h"
+#include "event/MouseButtonUp.h"
 
 #include "macros.h"
 #include "debug.h"
@@ -68,7 +70,7 @@ static void * _clone ( void *_self ) {
 }
 
 static int _update ( void *_self ) {
-	TRACEF (( "Window.update()" ));
+	/*TRACEF (( "Window.update()" ));*/
 	struct Window *self = _self;
 	ALLEGRO_EVENT al_ev;
 	void *ev;
@@ -81,6 +83,18 @@ static int _update ( void *_self ) {
 			case ALLEGRO_EVENT_MOUSE_AXES:
 				ev = new ( MouseMoved, (Pos) {al_ev.mouse.x, al_ev.mouse.y} );
 				event ( view, ev );
+				delete (ev);
+				break;
+			case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
+				ev = new ( MouseButtonDown, (Pos) {al_ev.mouse.x, al_ev.mouse.y}, al_ev.mouse.button );
+				event ( view, ev );
+				delete (ev);
+				break;
+			case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+				ev = new ( MouseButtonUp, (Pos) {al_ev.mouse.x, al_ev.mouse.y}, al_ev.mouse.button );
+				event ( view, ev );
+				delete (ev);
+				break;
 		}
 	}
 
@@ -94,7 +108,7 @@ static int _update ( void *_self ) {
 	return WIN_UPDATE_NOTHING;
 }
 static void _draw ( void *_self ) {
-	TRACEF (( "Window.draw()" ));
+	/*TRACEF (( "Window.draw()" ));*/
 	struct Window *self = _self;
 
 	void *view = stack_peek (self->views);
