@@ -27,10 +27,11 @@ static void _compSize ( void *_self ) {
 	struct Label *self = _self;
 	Rect r;
 
+	/*TRACEF (( "padding=%d, minWidth=%d", self->padding, self->minWidth ));*/
 	// set rectangle width and height
 	r = view_getRect ( self );
 	r.w = al_get_text_width ( self->font, self->text ) + 2 *self->padding;
-	r.w = r.w < 300 ? 300 : r.w;
+	r.w = r.w < self->minWidth ? self->minWidth : r.w;
 	r.h = al_get_font_line_height ( self->font ) + 2 * self->padding;
 	view_setRect ( self, r );
 }
@@ -57,7 +58,7 @@ static void * _ctor ( void *_self, va_list *app ) {
 	self->font = font;
 	self->text = text;
 
-	self->minWidth = 300;
+	self->minWidth = 0;
 	self->padding = 10;
 
 	_compSize ( self );
@@ -74,7 +75,7 @@ static void _dtor ( void *_self ) {
 	al_destroy_font ( self->font );
 }
 
-static int _update ( void *obj ) {
+static int _update ( void *_self ) {
 	/*TRACEF (( "Label.update ()" ));*/
 	return 0;
 }
@@ -87,11 +88,28 @@ static void _draw ( void *_self ) {
 void label_setText ( void *_self, char *text ) {
 	struct Label *self = _self;
 
-	TRACE;
 	free ( self->text );
-	TRACE;
 	self->text = strdup ( text );
-	TRACE;
+	_compSize ( self );
+}
+
+void label_setMinWidth ( void *_self, int minWidth ) {
+	struct Label *self = _self;
+	self->minWidth = minWidth;
+	_compSize ( self );
+}
+int label_getMinWidth ( void *_self, int minWidth ) {
+	struct Label *self = _self;
+	return self->minWidth;
+}
+void label_setPadding ( void *_self, int padding ) {
+	struct Label *self = _self;
+	self->padding = padding;
+	_compSize ( self );
+}
+int label_getPadding ( void *_self, int padding ) {
+	struct Label *self = _self;
+	return self->padding;
 }
 
 struct GUIHandler _Label = {

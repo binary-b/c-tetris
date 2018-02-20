@@ -8,8 +8,25 @@
  * Class:
  *   - class descriptor
  *
+ * new:
+ *   - creates new Object
+ *
  * delete:
  *   - when called on NULL does nothing
+ *
+ * clone:
+ *   - when object does not implement clonning itself,
+ *     the function clones only automatically allocated
+ *     resources (as with new ())
+ *
+ * differ:
+ *   - not used
+ *
+ * sizeOf:
+ *   - size of automatically allocated object
+ *
+ * typeOf:
+ *   - returns pointer to Class descriptor
  */
 
 void *new ( void *class, ... );

@@ -58,7 +58,7 @@ static void * _ctor ( void *_self, va_list *app ) {
 	return _self;
 }
 static void _dtor ( void *_self ) {
-	TRACEF (( "Window.delete()" ));
+	/*TRACEF (( "Window.delete()" ));*/
 	struct Window *self = _self;
 
 	al_destroy_event_queue ( self->queue );
