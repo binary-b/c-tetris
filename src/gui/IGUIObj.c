@@ -1,11 +1,11 @@
-#include "gui/GUIObj.r"
-#include "gui/GUIObj.h"
+#include "gui/IGUIObj.r"
+#include "gui/IGUIObj.h"
 
 #include <assert.h>
 #include "debug.h"
 
 int update ( void *_self ) {
-	const struct GUIObj **self = _self;
+	const struct IGUIObj **self = _self;
 	int ret = 0;
 
 	assert ( *self );
@@ -17,7 +17,7 @@ int update ( void *_self ) {
 }
 
 void draw ( void *_self ) {
-	const struct GUIObj **self = _self;
+	const struct IGUIObj **self = _self;
 
 	assert ( *self );
 	if ( (*self)->draw ) {

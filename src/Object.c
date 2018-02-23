@@ -1,4 +1,4 @@
-#include "Class.r"
+#include "IClass.r"
 #include "Object.r"
 #include "Object.h"
 
@@ -6,7 +6,7 @@ static void *_ctor ( void *_self, va_list *app ) {
 	return _self;
 }
 
-struct Class _Object = {
+struct IClass _Object = {
 	sizeof ( struct Object ),
 	_ctor,
 	NULL,

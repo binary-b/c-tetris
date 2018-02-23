@@ -1,4 +1,4 @@
-#include "event/Event.r"
+#include "event/IEvent.r"
 #include "event/MouseEvent.r"
 
 #include "event/MouseEntered.h"
@@ -7,7 +7,7 @@ struct MouseEntered {
 	struct MouseEvent _p;
 };
 
-static struct Event _MouseEntered = {
+static struct IEvent _MouseEntered = {
 	sizeof (struct MouseEntered),
 	MouseEvent_ctor,
 	NULL,

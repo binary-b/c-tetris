@@ -5,12 +5,12 @@
 #include <allegro5/allegro5.h>
 #include <allegro5/allegro_primitives.h>
 
-#include "gui/GUIObj.r"
+#include "gui/IGUIObj.r"
 #include "Object.r"
 #include "game/Board.h"
 
 #include "gui/View.h"
-#include "Class.h"
+#include "IClass.h"
 
 #include "macros.h"
 #include "debug.h"
@@ -82,7 +82,7 @@ void block_rot ( void *block ) {
 void block_move ( void *block ) {
 }
 
-struct GUIObj _Block = {
+struct IGUIObj _Block = {
 	sizeof ( struct Block ),
 	_ctor,
 	_dtor,

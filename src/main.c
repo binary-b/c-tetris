@@ -4,8 +4,8 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
 
-#include "Class.h"
-#include "gui/GUIObj.h"
+#include "IClass.h"
+#include "gui/IGUIObj.h"
 #include "gui/Window.h"
 #include "gui/View.h"
 /*#include "gui/Container.h"*/

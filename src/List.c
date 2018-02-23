@@ -1,5 +1,5 @@
-#include "Class.r"
-#include "Class.h"
+#include "IClass.r"
+#include "IClass.h"
 #include "Object.r"
 #include "List.h"
 
@@ -123,7 +123,7 @@ void list_apply ( void *_self, void (*f) (int id, void *obj) ) {
 	}
 }
 
-struct Class _List = {
+struct IClass _List = {
 	sizeof ( struct List ),
 	_ctor,
 	_dtor,

@@ -1,12 +1,12 @@
 #include <allegro5/allegro5.h>
 #include <allegro5/allegro_primitives.h>
 
-#include "gui/GUIHandler.r"
+#include "gui/IGUIHandler.r"
 #include "gui/View.r"
 #include "game/Board.h"
 
 #include "gui/View.h"
-#include "Class.h"
+#include "IClass.h"
 #include "game/Block.h"
 
 #include "rect.h"
@@ -88,7 +88,7 @@ static void _draw ( void *_self ) {
 static void _event ( void *_self, void *ev ) {
 }
 
-struct GUIHandler _Board = {
+struct IGUIHandler _Board = {
 	sizeof ( struct Board ),
 	_ctor,
 	_dtor,

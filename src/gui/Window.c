@@ -2,17 +2,17 @@
 
 #include <allegro5/allegro.h>
 
-#include "gui/GUIObj.r"
+#include "gui/IGUIObj.r"
 #include "Object.r"
 
-#include "Class.h"
-#include "gui/GUIObj.h"
-#include "gui/GUIHandler.h"
+#include "IClass.h"
+#include "gui/IGUIObj.h"
+#include "gui/IGUIHandler.h"
 #include "gui/Window.h"
 #include "Stack.h"
 #include "gui/View.h"
 
-#include "event/Event.h"
+#include "event/IEvent.h"
 #include "event/MouseMoved.h"
 #include "event/MouseButtonDown.h"
 #include "event/MouseButtonUp.h"
@@ -130,7 +130,7 @@ void win_addView ( void *_self, void *view ) {
 	stack_push ( self->views, view );
 }
 
-struct GUIObj _Window = {
+struct IGUIObj _Window = {
 	sizeof ( struct Window ),
 	_ctor,
 	_dtor,

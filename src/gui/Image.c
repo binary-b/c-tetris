@@ -1,7 +1,7 @@
 #include <allegro5/allegro.h>
 #include <assert.h>
 
-#include "gui/GUIHandler.r"
+#include "gui/IGUIHandler.r"
 #include "gui/View.r"
 
 #include "gui/View.h"
@@ -55,7 +55,7 @@ static void _draw ( void *_self ) {
 	al_draw_bitmap ( self->image, 0, 0, 0 );
 }
 
-struct GUIHandler _Image = {
+struct IGUIHandler _Image = {
 	sizeof ( struct Image ),
 	_ctor,
 	_dtor,

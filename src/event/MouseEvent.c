@@ -3,13 +3,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "event/Event.r"
+#include "event/IEvent.r"
 #include "Object.r"
 
 #include "event/MouseEvent.r"
 #include "event/MouseEvent.h"
 
-#include "Class.h"
+#include "IClass.h"
 #include "gui/View.h"
 
 #include "macros.h"
@@ -33,7 +33,7 @@ Pos mev_getPos ( void *_self ) {
 	return self->pos;
 }
 
-static struct Event _MouseEvent = {
+static struct IEvent _MouseEvent = {
 	sizeof ( struct MouseEvent ),
 	MouseEvent_ctor,
 	NULL,

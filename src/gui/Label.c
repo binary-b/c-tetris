@@ -6,7 +6,7 @@
 #include <allegro5/allegro_ttf.h>
 
 #include "gui/View.r"
-#include "gui/GUIHandler.r"
+#include "gui/IGUIHandler.r"
 #include "gui/Label.h"
 
 #include "gui/View.h"
@@ -112,7 +112,7 @@ int label_getPadding ( void *_self, int padding ) {
 	return self->padding;
 }
 
-struct GUIHandler _Label = {
+struct IGUIHandler _Label = {
 	sizeof ( struct Label ),
 	_ctor,
 	_dtor,

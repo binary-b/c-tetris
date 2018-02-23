@@ -1,5 +1,5 @@
-#include "Class.r"
-#include "Class.h"
+#include "IClass.r"
+#include "IClass.h"
 #include "Object.r"
 #include "Stack.h"
 
@@ -85,7 +85,7 @@ void *stack_pop ( void *_self ) {
 	return obj;
 }
 
-struct Class _Stack = {
+struct IClass _Stack = {
 	sizeof ( struct Stack ),
 	_ctor,
 	_dtor,

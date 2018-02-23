@@ -4,10 +4,10 @@
 #include <assert.h>
 #include <stdarg.h>
 
-#include "gui/GUIHandler.r"
+#include "gui/IGUIHandler.r"
 #include "Object.r"
 
-#include "Class.h"
+#include "IClass.h"
 #include "gui/View.h"
 #include "gui/View.r"
 
@@ -90,7 +90,7 @@ bool view_isRezisable ( void *_self ) {
 	return self->resizable;
 }
 
-struct GUIHandler _View = {
+struct IGUIHandler _View = {
 	sizeof ( struct View ),
 	_ctor,
 	_dtor,

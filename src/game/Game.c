@@ -1,11 +1,11 @@
 #include <allegro5/allegro5.h>
 
-#include "gui/GUIHandler.r"
+#include "gui/IGUIHandler.r"
 #include "gui/View.r"
 #include "game/Game.h"
 
-#include "Class.h"
-#include "gui/GUIObj.h"
+#include "IClass.h"
+#include "gui/IGUIObj.h"
 #include "gui/View.h"
 
 #include "game/Board.h"
@@ -50,7 +50,7 @@ static void _draw ( void *_self ) {
 static void _event ( void *_self, void *ev ) {
 }
 
-struct GUIHandler _Game = {
+struct IGUIHandler _Game = {
 	sizeof ( struct Game ),
 	_ctor,
 	_dtor,

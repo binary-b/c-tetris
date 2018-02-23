@@ -1,7 +1,7 @@
 #include "test.h"
 #include "debug.h"
 
-#include "Class.h"
+#include "IClass.h"
 #include "List.h"
 #include "Object.h"
 

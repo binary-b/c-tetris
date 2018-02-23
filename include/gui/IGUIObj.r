@@ -1,5 +1,5 @@
-#ifndef _GUIOBJ_R_
-#define _GUIOBJ_R_
+#ifndef _IGUIOBJ_R_
+#define _IGUIOBJ_R_
 
 /*
  * update:
@@ -8,15 +8,15 @@
  *    (int) 0
  */
 
-#include "Class.r"
+#include "IClass.r"
 
-#define CONT_GUIOBJ \
-	CONT_CLASS \
+#define CONT_IGUIOBJ \
+	CONT_ICLASS \
 	int (*update) ( void *obj ); \
 	void (*draw) ( void *obj );
 
-struct GUIObj {
-	CONT_GUIOBJ
+struct IGUIObj {
+	CONT_IGUIOBJ
 };
 
 #endif

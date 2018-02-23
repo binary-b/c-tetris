@@ -1,5 +1,5 @@
-#ifndef _CLASS_H_
-#define _CLASS_H_
+#ifndef _ICLASS_H_
+#define _ICLASS_H_
 
 #include <stdlib.h>
 #include "macros.h"

@@ -1,6 +1,6 @@
 #include "test.h"
 
-#include "Class.h"
+#include "IClass.h"
 #include "Object.h"
 #include "List.h"
 

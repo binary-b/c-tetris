@@ -1,10 +1,10 @@
-#include "gui/GUIHandler.r"
+#include "gui/IGUIHandler.r"
 #include <assert.h>
 
-#include "gui/GUIHandler.h"
+#include "gui/IGUIHandler.h"
 
 void event ( void *_self, void *ev ) {
-	struct GUIHandler **self = _self;
+	struct IGUIHandler **self = _self;
 
 	assert ( self );
 	if ( (*self)->event ) {

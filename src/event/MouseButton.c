@@ -1,6 +1,6 @@
 #include <stdarg.h>
 
-#include "event/Event.r"
+#include "event/IEvent.r"
 #include "event/MouseEvent.r"
 #include "event/MouseEvent.h"
 
@@ -22,7 +22,7 @@ int mev_getButton ( void *_self ) {
 	return self->button;
 }
 
-static struct Event _MouseButton = {
+static struct IEvent _MouseButton = {
 	sizeof (struct MouseButton),
 	MouseButton_ctor,
 	NULL,

@@ -1,7 +1,7 @@
 #include "test.h"
 
-#include "Class.h"
-#include "gui/GUIObj.h"
+#include "IClass.h"
+#include "gui/IGUIObj.h"
 #include "gui/Window.h"
 
 #include "macros.h"

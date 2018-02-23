@@ -19,7 +19,7 @@ package "struct" {
 	}
 }
 
-interface Class {
+interface IClass {
 	size_t size;
 	{abstract} Object ctor ( Class class, va_list *app );
 	{abstract} void dtor ();
@@ -63,8 +63,13 @@ package event {
 		CLOCKWISE,
 		COURTER_CLOCKWISE
 	}
-	interface Event {
+	interface IEvent {
 		{abstract} void zoomOnView ( Event ev, View view );
+	}
+	class Event {
+		ALLEGRO_EVENT *alEvent;
+	}
+	class ResizedEvent {
 	}
 	class MouseEvent {
 		Pos pos;
@@ -89,11 +94,11 @@ package event {
 	}
 }
 package gui {
-	interface GUIObj {
+	interface IGUIObj {
 		{abstract} void draw ( GUIObj obj );
 		{abstract} int update ( GUIObj obj );
 	}
-	interface GUIHandler {
+	interface IGUIHandler {
 		{abstract} void event ( View view, Event ev );
 	}
 	class Window {
@@ -130,17 +135,19 @@ package gui {
 	}
 }
 
-Object --* Class
+Object --* IClass
 
 List --|> Object
 Stack --|> Object
 
-GUIObj --|> Class
-GUIHandler --|> GUIObj
+IGUIObj --|> IClass
+IGUIHandler --|> IGUIObj
 
-Event --|> Class
-MouseEvent --* Event
-KeyboardEvent --* Event
+IEvent --|> IClass
+Event --* IEvent
+ResizedEvent --|> Event
+MouseEvent --|> Event
+KeyboardEvent --|> Event
 MouseEvent --|> Object
 KeyboardEvent --|> Object
 
@@ -151,9 +158,9 @@ MouseButton --|> MouseEvent
 MouseButtonDown --|>MouseButton
 MouseButtonUp --|>MouseButton
 
-Window --* GUIObj
+Window --* IGUIObj
 Window --|> Object
-View --* GUIHandler
+View --* IGUIHandler
 View --|> Object
 
 Container	--|> View

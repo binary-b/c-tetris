@@ -1,14 +1,14 @@
-#include "gui/GUIHandler.r"
+#include "gui/IGUIHandler.r"
 #include "gui/View.r"
 #include "gui/Container.h"
 
-#include "Class.h"
-#include "gui/GUIObj.h"
-#include "gui/GUIHandler.h"
+#include "IClass.h"
+#include "gui/IGUIObj.h"
+#include "gui/IGUIHandler.h"
 #include "List.h"
 #include "gui/View.h"
 
-#include "event/Event.h"
+#include "event/IEvent.h"
 #include "event/MouseEvent.h"
 #include "event/MouseMoved.h"
 #include "event/MouseEntered.h"
@@ -119,7 +119,7 @@ static void _event ( void *_self, void *ev ) {
 	}
 }
 
-struct GUIHandler _Container = {
+struct IGUIHandler _Container = {
 	sizeof (struct Container),
 	_ctor,
 	_dtor,

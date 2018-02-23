@@ -1,10 +1,10 @@
 #include <assert.h>
 
-#include "event/Event.r"
-#include "event/Event.h"
+#include "event/IEvent.r"
+#include "event/IEvent.h"
 
 void event_zoomOnView ( void *_self, void *view ) {
-	struct Event **self = _self;
+	struct IEvent **self = _self;
 
 	assert (*self);
 	if ( (*self)->zoom )

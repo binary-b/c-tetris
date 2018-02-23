@@ -2,11 +2,11 @@
 #include <stdarg.h>
 #include <assert.h>
 
-#include "gui/GUIHandler.r"
+#include "gui/IGUIHandler.r"
 #include "gui/View.r"
 
-#include "Class.h"
-#include "gui/GUIObj.h"
+#include "IClass.h"
+#include "gui/IGUIObj.h"
 #include "gui/Button.h"
 #include "gui/View.h"
 #include "event/MouseEntered.h"
@@ -98,7 +98,7 @@ void btn_call ( void *_self ) {
 	self->f ( self );
 }
 
-struct GUIHandler _Button =  {
+struct IGUIHandler _Button =  {
 	sizeof ( struct Button ),
 	_ctor,
 	NULL,
