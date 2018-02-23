@@ -88,13 +88,13 @@ static void _event_view ( int id, void *view ) {
 			/*TRACEF (( "Mouse over some view" ));*/
 			_event_self->actView = view;
 
-			ev = new ( MouseEntered, pos );
+			ev = new ( MouseEntered, NULL, pos );
 			event_zoomOnView (ev, view);
 			event ( view, ev );
 		}
 	} else if ( view == _event_self->actView ) {
 		/*TRACEF (( "Mouse leaves some view" ));*/
-		ev = new ( MouseLeft, pos );
+		ev = new ( MouseLeft, NULL, pos );
 		event_zoomOnView (ev, view);
 		event ( view, ev );
 		_event_self->actView = NULL;

@@ -68,6 +68,7 @@ package event {
 	}
 	class Event {
 		ALLEGRO_EVENT *alEvent;
+		new ( ALLEGRO_EVENT *alEvent );
 	}
 	class ResizedEvent {
 	}
@@ -145,11 +146,11 @@ IGUIHandler --|> IGUIObj
 
 IEvent --|> IClass
 Event --* IEvent
+
+Event --|> Object
 ResizedEvent --|> Event
 MouseEvent --|> Event
 KeyboardEvent --|> Event
-MouseEvent --|> Object
-KeyboardEvent --|> Object
 
 MouseMoved --|> MouseEvent
 MouseEntered --|> MouseEvent

@@ -4,7 +4,7 @@
 #include <string.h>
 
 #include "event/IEvent.r"
-#include "Object.r"
+#include "event/Event.r"
 
 #include "event/MouseEvent.r"
 #include "event/MouseEvent.h"
@@ -15,6 +15,8 @@
 #include "macros.h"
 
 void *MouseEvent_ctor ( void *_self, va_list *app ) {
+	Event_ctor ( _self, app );
+
 	struct MouseEvent *self = _self;
 	self->pos = va_arg ( *app, Pos );
 	return _self;

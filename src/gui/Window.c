@@ -86,17 +86,17 @@ static int _update ( void *_self ) {
 			case ALLEGRO_EVENT_DISPLAY_CLOSE:
 				return WIN_UPDATE_CLOSED;
 			case ALLEGRO_EVENT_MOUSE_AXES:
-				ev = new ( MouseMoved, (Pos) {al_ev.mouse.x, al_ev.mouse.y} );
+				ev = new ( MouseMoved, ev, (Pos) {al_ev.mouse.x, al_ev.mouse.y} );
 				event ( view, ev );
 				delete (ev);
 				break;
 			case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-				ev = new ( MouseButtonDown, (Pos) {al_ev.mouse.x, al_ev.mouse.y}, al_ev.mouse.button );
+				ev = new ( MouseButtonDown, ev, (Pos) {al_ev.mouse.x, al_ev.mouse.y}, al_ev.mouse.button );
 				event ( view, ev );
 				delete (ev);
 				break;
 			case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-				ev = new ( MouseButtonUp, (Pos) {al_ev.mouse.x, al_ev.mouse.y}, al_ev.mouse.button );
+				ev = new ( MouseButtonUp, ev, (Pos) {al_ev.mouse.x, al_ev.mouse.y}, al_ev.mouse.button );
 				event ( view, ev );
 				delete (ev);
 				break;
