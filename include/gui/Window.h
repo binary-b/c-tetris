@@ -9,5 +9,6 @@ enum win_update {
 };
 
 void win_addView ( void *self, void *view );
+void win_setFlags ( void );
 
 #endif

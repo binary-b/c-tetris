@@ -23,23 +23,19 @@ static void *_ctor ( void *_self, va_list *app ) {
 	ALLEGRO_PATH *path;
 	ALLEGRO_BITMAP *image;
 
-	TRACE;
 	// load image
 	name = va_arg ( *app, char * );
 	path = al_get_standard_path ( ALLEGRO_RESOURCES_PATH );
 	al_append_path_component ( path, "img" );
 	al_set_path_filename ( path, name );
 	image = al_load_bitmap ( al_path_cstr (path, ALLEGRO_NATIVE_PATH_SEP) );
-	TRACEF (( "%s", al_path_cstr (path, ALLEGRO_NATIVE_PATH_SEP) ));
 	assert ( image );
-	TRACE;
 
 	// set rectangle width and height
 	r = view_getRect ( self );
 	r.w = al_get_bitmap_width ( image );
 	r.h = al_get_bitmap_height ( image );
 	view_setRect ( self, r );
-	TRACE;
 
 	self->image = image;
 

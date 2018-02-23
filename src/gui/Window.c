@@ -28,6 +28,11 @@ struct Window {
 	ALLEGRO_EVENT_QUEUE *queue;
 };
 
+void win_setFlags ( void ) {
+	al_set_new_display_option ( ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST );
+	al_set_new_display_option ( ALLEGRO_SAMPLES, 8, ALLEGRO_SUGGEST );
+}
+
 static void * _ctor ( void *_self, va_list *app ) {
 	struct Window *self = _self;
 	Rect rect;
