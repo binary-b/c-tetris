@@ -13,4 +13,9 @@ typedef struct {
 	int y;
 } Pos;
 
+typedef struct {
+	float x;
+	float y;
+} PosFloat;
+
 #endif

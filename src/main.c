@@ -7,7 +7,7 @@
 #include "IClass.h"
 #include "gui/IGUIObj.h"
 #include "gui/Window.h"
-#include "gui/View.h"
+/*#include "gui/View.h"*/
 /*#include "gui/Container.h"*/
 /*#include "gui/Label.h"*/
 /*#include "gui/Image.h"*/
@@ -15,8 +15,8 @@
 #include "game/Game.h"
 
 #include "macros.h"
+#include "rect.h"
 #include "test.h"
-#include "debug.h"
 
 bool game_stop = false;
 
@@ -40,18 +40,15 @@ int main ( int argc, char **argv ) {
 	return 0;
 }
 
-/*
- *static void *_label;
- *static void _button_call ( void *button ) {
- *    label_setText ( _label, "Button Clicked!... Long, long text" );
- *}
- */
+/*static void *_label;*/
+/*static void _button_call ( void *button ) {*/
+	/*label_setText ( _label, "Button Clicked!... Long, long text" );*/
+/*}*/
 void game_loop ( void ) {
 	extern bool game_stop;
 	ALLEGRO_EVENT_QUEUE *queue;
 	ALLEGRO_TIMER *timer;
 
-	/*void *view, *container;*/
 	void *game;
 	void *window = new ( Window, (Rect) {0, 0, 480, 720} );
 
@@ -63,6 +60,7 @@ void game_loop ( void ) {
 	win_addView ( window, game );
 
 /*
+ *    void *view, *container;
  *    container = new ( Container, (Rect) {0, 0, 0, 0} );
  *    view = new ( View, (Rect) {10, 10, 100, 100} );
  *    cont_addView ( container, view );

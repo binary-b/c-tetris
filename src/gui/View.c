@@ -8,11 +8,13 @@
 #include "Object.r"
 
 #include "IClass.h"
+#include "gui/IGUIHandler.h"
 #include "gui/View.h"
 #include "gui/View.r"
 
 #include "event/MouseEvent.h"
 #include "event/MouseMoved.h"
+#include "event/ResizeEvent.h"
 
 #include "macros.h"
 #include "rect.h"
@@ -69,10 +71,23 @@ void view_zoomRestore ( void *_self ) {
 	al_destroy_bitmap ( bitmap );
 }
 
+void view_setContext ( void *_self, void *context ) {
+	struct View *self = _self;
+	self->context = context;
+}
+void *view_getContext ( void *_self ) {
+	struct View *self = _self;
+	return self->context;
+}
+
 void view_setRect ( void *_self, Rect rect ) {
 	struct View *self = _self;
+	void *ev;
 
+	ev = new ( ResizeEvent, NULL );
 	self->rect = rect;
+	event ( self, ev );
+	delete (ev);
 }
 Rect view_getRect ( void *_self ) {
 	struct View *self = _self;

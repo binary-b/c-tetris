@@ -16,6 +16,7 @@
 #include "event/MouseMoved.h"
 #include "event/MouseButtonDown.h"
 #include "event/MouseButtonUp.h"
+#include "event/KeyEvent.h"
 
 #include "macros.h"
 #include "debug.h"
@@ -53,6 +54,7 @@ static void * _ctor ( void *_self, va_list *app ) {
 	queue = al_create_event_queue ();
 	al_register_event_source ( queue, al_get_display_event_source (display) );
 	al_register_event_source ( queue, al_get_mouse_event_source () );
+	al_register_event_source ( queue, al_get_keyboard_event_source () );
 
 	self->rect = rect;
 	self->display = display;
@@ -82,25 +84,31 @@ static int _update ( void *_self ) {
 	void *view = stack_peek (self->views);
 
 	while ( al_get_next_event (self->queue, &al_ev) ) {
+
+		ev = NULL;
+
 		switch ( al_ev.type ) {
 			case ALLEGRO_EVENT_DISPLAY_CLOSE:
 				return WIN_UPDATE_CLOSED;
 			case ALLEGRO_EVENT_MOUSE_AXES:
-				ev = new ( MouseMoved, ev, (Pos) {al_ev.mouse.x, al_ev.mouse.y} );
+				ev = new ( MouseMoved, al_ev, (Pos) {al_ev.mouse.x, al_ev.mouse.y} );
 				event ( view, ev );
-				delete (ev);
 				break;
 			case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-				ev = new ( MouseButtonDown, ev, (Pos) {al_ev.mouse.x, al_ev.mouse.y}, al_ev.mouse.button );
+				ev = new ( MouseButtonDown, al_ev, (Pos) {al_ev.mouse.x, al_ev.mouse.y}, al_ev.mouse.button );
 				event ( view, ev );
-				delete (ev);
 				break;
 			case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-				ev = new ( MouseButtonUp, ev, (Pos) {al_ev.mouse.x, al_ev.mouse.y}, al_ev.mouse.button );
+				ev = new ( MouseButtonUp, al_ev, (Pos) {al_ev.mouse.x, al_ev.mouse.y}, al_ev.mouse.button );
 				event ( view, ev );
-				delete (ev);
+				break;
+			case ALLEGRO_EVENT_KEY_UP:
+			case ALLEGRO_EVENT_KEY_DOWN:
+				ev = new ( KeyEvent, al_ev );
+				event ( view, ev );
 				break;
 		}
+		delete ( ev );
 	}
 
 	/*

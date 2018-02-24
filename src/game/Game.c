@@ -8,6 +8,9 @@
 #include "gui/IGUIObj.h"
 #include "gui/View.h"
 
+#include "event/ResizeEvent.h"
+#include "event/KeyEvent.h"
+
 #include "game/Board.h"
 
 #include "debug.h"
@@ -35,19 +38,25 @@ static int _update ( void *_self ) {
 static void _draw ( void *_self ) {
 	struct Game *self = _self;
 
-	Rect r = view_getRect ( self );
-	r.x += 20;
-	r.y += 10;
-	r.w -= 40;
-	r.h -= 10;
-	view_setRect ( self->board, r );
-
 	view_zoomIn ( self->board );
 	draw ( self->board );
 	view_zoomRestore ( self->board );
 }
 
 static void _event ( void *_self, void *ev ) {
+	struct Game *self = _self;
+
+	if ( typeOf (ev) == ResizeEvent ) {
+		Rect r = view_getRect ( self );
+		r.x += 20;
+		r.y += 10;
+		r.w -= 40;
+		r.h -= 10;
+		view_setRect ( self->board, r );
+	} else if ( typeOf (ev) == KeyEvent ) {
+		TRACE;
+		TRACEF (( "You pressed a button!" ));
+	}
 }
 
 struct IGUIHandler _Game = {

@@ -37,6 +37,9 @@ extern void *View;
 void view_zoomIn ( void *self );
 void view_zoomRestore ( void *self );
 
+void view_setContext ( void *self, void *context );
+void *view_getContext ( void *self );
+
 void view_setRect ( void *self, Rect rect );
 Rect view_getRect ( void *self );
 void view_setRezisable ( void *self, bool resizable );
