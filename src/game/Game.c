@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <time.h>
 #include <allegro5/allegro5.h>
 
 #include "gui/IGUIHandler.r"
@@ -6,6 +8,7 @@
 
 #include "IClass.h"
 #include "gui/IGUIObj.h"
+#include "gui/IGUIHandler.h"
 #include "gui/View.h"
 
 #include "event/ResizeEvent.h"
@@ -18,6 +21,10 @@
 struct Game {
 	struct View _p;
 	void *board;
+
+	// timer
+	ALLEGRO_TIMER *timer;
+	ALLEGRO_EVENT_QUEUE *queue;
 };
 
 static void *_ctor ( void *_self, va_list *app ) {
@@ -26,13 +33,35 @@ static void *_ctor ( void *_self, va_list *app ) {
 
 	self->board = new ( Board, view_getRect (self) );
 
+	self->timer = al_create_timer ( 1 / (double) 60 );
+	self->queue = al_create_event_queue ();
+	al_register_event_source ( self->queue, al_get_timer_event_source (self->timer) );
+
+	al_start_timer ( self->timer );
+
+	// set random seed for the game
+	srand ( time (0) );
+
 	return _self;
 }
 
 static void _dtor ( void *_self ) {
+	struct Game *self = _self;
+
+	delete ( self->board );
+	al_destroy_event_queue ( self->queue );
+	al_destroy_timer ( self->timer );
 }
 
 static int _update ( void *_self ) {
+	struct Game *self = _self;
+	ALLEGRO_EVENT al_ev;
+
+	while ( al_get_next_event (self->queue, &al_ev) ) {
+		if ( al_ev.type == ALLEGRO_EVENT_TIMER ) {
+			board_tick ( self->board );
+		}
+	}
 	return 0;
 }
 static void _draw ( void *_self ) {
@@ -54,8 +83,7 @@ static void _event ( void *_self, void *ev ) {
 		r.h -= 10;
 		view_setRect ( self->board, r );
 	} else if ( typeOf (ev) == KeyEvent ) {
-		TRACE;
-		TRACEF (( "You pressed a button!" ));
+		event ( self->board, ev );
 	}
 }
 

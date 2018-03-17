@@ -12,6 +12,6 @@
 
 extern void *Event;
 
-ALLEGRO_EVENT event_getAlEvent ( void *self );
+ALLEGRO_EVENT *event_getAlEvent ( void *self );
 
 #endif

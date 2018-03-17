@@ -59,6 +59,7 @@ void game_loop ( void ) {
 	game = new ( Game, (Rect) {0, 0, 0, 0} );
 	win_addView ( window, game );
 
+
 /*
  *    void *view, *container;
  *    container = new ( Container, (Rect) {0, 0, 0, 0} );
