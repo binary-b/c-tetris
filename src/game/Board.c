@@ -94,22 +94,24 @@ static void _newBlock ( struct Board *self ) {
 	block_saveOnBoard ( self->block );
 
 	delete ( self->block );
-	self->block = new ( Block, self, (Pos) {3,0}, al_map_rgb (255,0,0) );
+	self->block = new ( Block, self, (Pos) {(self->width - BLOCK_BITMAP_SIZE) / 2,0}, al_map_rgb (255,0,0) );
 
 	_clearFullRows ( self );
+
+	self->fast = false;
 }
 
 static void *_ctor ( void *_self, va_list *app ) {
 	View_ctor ( _self, app );
 	struct Board *self = _self;
 
-	self->width = 10;
-	self->height = 14;
+	self->width = 13;
+	self->height = 25;
 	self->fast = false;
 	self->direction = BLOCK_NONE;
 
 	self->board = calloc ( self->width * self->height, sizeof self->board[0] );
-	self->block = new ( Block, self, (Pos) {3,0}, al_map_rgb (255,0,0) );
+	self->block = new ( Block, self, (Pos) {(self->width - BLOCK_BITMAP_SIZE) / 2,0}, al_map_rgb (255,0,0) );
 
 	_compute_drawing ( self );
 

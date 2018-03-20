@@ -50,7 +50,7 @@ void game_loop ( void ) {
 	ALLEGRO_TIMER *timer;
 
 	void *game;
-	void *window = new ( Window, (Rect) {0, 0, 480, 720} );
+	void *window = new ( Window, (Rect) {0, 0, 390, 750} );
 
 	timer = al_create_timer ( 1 / (double) 60 );
 	queue = al_create_event_queue ();

@@ -31,7 +31,9 @@ static void *_ctor ( void *_self, va_list *app ) {
 	View_ctor ( _self, app );
 	struct Game *self = _self;
 
-	self->board = new ( Board, view_getRect (self) );
+	Rect r = view_getRect (self);
+	r.w = r.w * 10 / 8;
+	self->board = new ( Board, r );
 
 	self->timer = al_create_timer ( 1 / (double) 60 );
 	self->queue = al_create_event_queue ();
@@ -77,10 +79,11 @@ static void _event ( void *_self, void *ev ) {
 
 	if ( typeOf (ev) == ResizeEvent ) {
 		Rect r = view_getRect ( self );
-		r.x += 20;
-		r.y += 10;
-		r.w -= 40;
-		r.h -= 10;
+		/*r.x += 20;*/
+		/*r.y += 10;*/
+		/*r.w -= 40;*/
+		/*r.h -= 10;*/
+		/*r.w = r.w * 8 / 10;*/
 		view_setRect ( self->board, r );
 	} else if ( typeOf (ev) == KeyEvent ) {
 		event ( self->board, ev );

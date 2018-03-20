@@ -1,0 +1,35 @@
+Copyright © 2018 Filip Jagiełłowicz
+
+ABOUT PROJECT:
+The project is still not complete - I want to add some panel
+on the right with some buttons like “settings”, but it might
+take me a while to get myself to type the finishing lines.
+
+LICENSE:
+The project is released under MIT license (see LICENSE file
+in the same folder).
+
+ERRORS:
+If you find any error in the game please report it to
+binary_b@protonmail.com.
+
+WARNING:
+The game have been tested only under Linux. Although it
+should work under Microsoft Windows and XOS some problems
+may occur. If so let me know (binary_b@protonmail.com).
+
+DEPENDENCES:
+  - GCC
+  - Allegro 5
+  - Linux kernel (it is not tested on other platforms,
+	  althought it is written in ANSI C, so it MAY work
+		on Windows)
+	- Make (ex. GNU Make)
+
+COMPILING GAME:
+While in the main game folder type “make”. An executable
+file “tetris” should appear as compilation is over.
+
+STARTING GAME:
+Once the compilation is complete type “./tetris” while in
+the main game folder.
